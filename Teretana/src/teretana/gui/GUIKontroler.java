@@ -8,10 +8,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import teretana.clan.ListaClanova;
+
 public class GUIKontroler {
 
 	private static TeretanaGUI teretanaGui;
 	private static GUIAboutUs guiAboutUs;
+	private static ListaClanova listaClanova;
+	private static DodajClanaGUI dodajClanaGui;
 
 	public static void prikaziEastPanel() {
 		teretanaGui.getEastPanel().setVisible(true);
@@ -33,8 +37,6 @@ public class GUIKontroler {
 		if (sifra != null) {
 			if (sifra.equals("admin")) {
 				prikaziEastPanel();
-				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Prijavljeni ste kao administrator!",
-						"Obaveštenje", JOptionPane.INFORMATION_MESSAGE);
 				teretanaGui.getBtnAdministrator().setVisible(false);
 				teretanaGui.getBtnOdjaviteSe().setVisible(true);
 			} else {
@@ -91,6 +93,37 @@ public class GUIKontroler {
 		guiAboutUs.setLocationRelativeTo(null);
 		guiAboutUs.setVisible(true);
 	}
+	
+	
+	public static void prikaziDodajClanaGUI() {
+		if (dodajClanaGui == null) {
+			dodajClanaGui = new DodajClanaGUI();
+			dodajClanaGui.setLocationRelativeTo(null);
+			dodajClanaGui.setVisible(true);
+		} else {
+			dodajClanaGui.toFront();
+		}
+	}
+	
+	public static void zatvoriDodajClanaGUI() {
+		if (dodajClanaGui != null) {
+			dodajClanaGui.dispose();
+			dodajClanaGui = null;
+		}
+		
+	}
+	
+	public static void izbrisiRedIzTabele(int red, String id) {
+		try {
+			listaClanova.izbrisiClana(id);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
+	public static void otvoriIzmeniClanaGUI() {
+		//TODO: implementirati...
+	}
 
 	/**
 	 * Launch the application.
@@ -109,6 +142,12 @@ public class GUIKontroler {
 			}
 		});
 	}
+
+	
+
+	
+
+	
 
 	
 }

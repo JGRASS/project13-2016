@@ -6,10 +6,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Toolkit;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JSeparator;
 import javax.swing.KeyStroke;
@@ -60,7 +64,7 @@ public class TeretanaGUI extends JFrame {
 		setTitle("Teretana");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(TeretanaGUI.class.getResource("/icons/icon.png")));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 618, 484);
+		setBounds(100, 100, 768, 640);
 		setJMenuBar(getMenuBar_1());
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -79,6 +83,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return menuBar;
 	}
+
 	private JMenu getMnFile() {
 		if (mnFile == null) {
 			mnFile = new JMenu("File");
@@ -89,6 +94,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return mnFile;
 	}
+
 	private JMenu getMnHelp() {
 		if (mnHelp == null) {
 			mnHelp = new JMenu("Help");
@@ -96,6 +102,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return mnHelp;
 	}
+
 	private JMenuItem getMntmAboutUs() {
 		if (mntmAboutUs == null) {
 			mntmAboutUs = new JMenuItem("About us");
@@ -108,6 +115,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return mntmAboutUs;
 	}
+
 	private JMenuItem getMntmOpen() {
 		if (mntmOpen == null) {
 			mntmOpen = new JMenuItem("Open");
@@ -117,10 +125,12 @@ public class TeretanaGUI extends JFrame {
 				}
 			});
 			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
-			mntmOpen.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
+			mntmOpen.setIcon(
+					new ImageIcon(TeretanaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
 		}
 		return mntmOpen;
 	}
+
 	private JMenuItem getMntmSave() {
 		if (mntmSave == null) {
 			mntmSave = new JMenuItem("Save");
@@ -129,11 +139,13 @@ public class TeretanaGUI extends JFrame {
 					GUIKontroler.sacuvajUFajl();
 				}
 			});
-			mntmSave.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
+			mntmSave.setIcon(
+					new ImageIcon(TeretanaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
 			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		}
 		return mntmSave;
 	}
+
 	private JMenuItem getMntmExit() {
 		if (mntmExit == null) {
 			mntmExit = new JMenuItem("Exit");
@@ -147,12 +159,14 @@ public class TeretanaGUI extends JFrame {
 		}
 		return mntmExit;
 	}
+
 	private JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
 		}
 		return separator;
 	}
+
 	public JPanel getEastPanel() {
 		if (eastPanel == null) {
 			eastPanel = new JPanel();
@@ -164,6 +178,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return eastPanel;
 	}
+
 	private JPanel getSouthPanel() {
 		if (southPanel == null) {
 			southPanel = new JPanel();
@@ -174,6 +189,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return southPanel;
 	}
+
 	private JScrollPane getScrollPane() {
 		if (scrollPane == null) {
 			scrollPane = new JScrollPane();
@@ -181,12 +197,24 @@ public class TeretanaGUI extends JFrame {
 		}
 		return scrollPane;
 	}
+
 	private JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.setFillsViewportHeight(true);
+			table.setModel(new DefaultTableModel(
+					new Object[] { "Broj èlanske karte", "Ime", "Prezime", "Pol" }, 0) {
+
+				public boolean isCellEditable(int row, int column) {
+					return false;
+				}
+			});
+			table.getTableHeader().setReorderingAllowed(false);
+
 		}
 		return table;
 	}
+
 	public JButton getBtnAdministrator() {
 		if (btnAdministrator == null) {
 			btnAdministrator = new JButton("Administrator");
@@ -199,27 +227,58 @@ public class TeretanaGUI extends JFrame {
 		}
 		return btnAdministrator;
 	}
+
 	private JButton getBtnDodaj() {
 		if (btnDodaj == null) {
 			btnDodaj = new JButton("Dodaj");
+			btnDodaj.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.prikaziDodajClanaGUI();
+				}
+			});
 			btnDodaj.setPreferredSize(new Dimension(115, 25));
 		}
 		return btnDodaj;
 	}
+
 	private JButton getBtnIzbrii() {
 		if (btnIzbrii == null) {
 			btnIzbrii = new JButton("Izbri\u0161i");
+			btnIzbrii.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					int red = getTable().getSelectedRow();
+					
+					if (red >= 0) {
+						GUIKontroler.izbrisiRedIzTabele(red, (String) getTable().getValueAt(red, 0)); 
+					} else {
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali èlana !", "Greška", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
 			btnIzbrii.setPreferredSize(new Dimension(115, 25));
 		}
 		return btnIzbrii;
 	}
+
 	private JButton getBtnIzmeni() {
 		if (btnIzmeni == null) {
 			btnIzmeni = new JButton("Izmeni");
+			btnIzmeni.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					int red = getTable().getSelectedRow();
+					
+					if (red >= 0) {
+						GUIKontroler.otvoriIzmeniClanaGUI();
+					} else {
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali èlana !", "Greška", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			});
 			btnIzmeni.setPreferredSize(new Dimension(115, 25));
 		}
 		return btnIzmeni;
 	}
+
 	public JButton getBtnOdjaviteSe() {
 		if (btnOdjaviteSe == null) {
 			btnOdjaviteSe = new JButton("Odjavite se");

@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 
 public class GUIAboutUs extends JDialog {
 
@@ -30,6 +31,7 @@ public class GUIAboutUs extends JDialog {
 	
 	public GUIAboutUs(Frame parent, boolean modal) {
 		super(parent, modal);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIAboutUs.class.getResource("/icons/icon.png")));
 		setTitle("About us");
 		setBounds(100, 100, 535, 494);
 		getContentPane().setLayout(new BorderLayout());
