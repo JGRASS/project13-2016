@@ -1,0 +1,236 @@
+package teretana.gui;
+
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.ImageIcon;
+import javax.swing.JSeparator;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.InputEvent;
+import java.awt.Dimension;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class TeretanaGUI extends JFrame {
+
+	private JPanel contentPane;
+	private JMenuBar menuBar;
+	private JMenu mnFile;
+	private JMenu mnHelp;
+	private JMenuItem mntmAboutUs;
+	private JMenuItem mntmOpen;
+	private JMenuItem mntmSave;
+	private JMenuItem mntmExit;
+	private JSeparator separator;
+	private JPanel eastPanel;
+	private JPanel southPanel;
+	private JScrollPane scrollPane;
+	private JTable table;
+	private JButton btnAdministrator;
+	private JButton btnDodaj;
+	private JButton btnIzbrii;
+	private JButton btnIzmeni;
+	private JButton btnOdjaviteSe;
+
+	/**
+	 * Create the frame.
+	 */
+	public TeretanaGUI() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				GUIKontroler.zatvoriAplikaciju();
+			}
+		});
+		setTitle("Teretana");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(TeretanaGUI.class.getResource("/icons/icon.png")));
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setBounds(100, 100, 618, 484);
+		setJMenuBar(getMenuBar_1());
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		contentPane.add(getEastPanel(), BorderLayout.EAST);
+		contentPane.add(getSouthPanel(), BorderLayout.SOUTH);
+		contentPane.add(getScrollPane(), BorderLayout.CENTER);
+	}
+
+	private JMenuBar getMenuBar_1() {
+		if (menuBar == null) {
+			menuBar = new JMenuBar();
+			menuBar.add(getMnFile());
+			menuBar.add(getMnHelp());
+		}
+		return menuBar;
+	}
+	private JMenu getMnFile() {
+		if (mnFile == null) {
+			mnFile = new JMenu("File");
+			mnFile.add(getMntmOpen());
+			mnFile.add(getMntmSave());
+			mnFile.add(getSeparator());
+			mnFile.add(getMntmExit());
+		}
+		return mnFile;
+	}
+	private JMenu getMnHelp() {
+		if (mnHelp == null) {
+			mnHelp = new JMenu("Help");
+			mnHelp.add(getMntmAboutUs());
+		}
+		return mnHelp;
+	}
+	private JMenuItem getMntmAboutUs() {
+		if (mntmAboutUs == null) {
+			mntmAboutUs = new JMenuItem("About us");
+			mntmAboutUs.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.prikaziAboutUs();
+				}
+			});
+			mntmAboutUs.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/icons/iconAboutUs.png")));
+		}
+		return mntmAboutUs;
+	}
+	private JMenuItem getMntmOpen() {
+		if (mntmOpen == null) {
+			mntmOpen = new JMenuItem("Open");
+			mntmOpen.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.otvoriFajl();
+				}
+			});
+			mntmOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK));
+			mntmOpen.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/directory.gif")));
+		}
+		return mntmOpen;
+	}
+	private JMenuItem getMntmSave() {
+		if (mntmSave == null) {
+			mntmSave = new JMenuItem("Save");
+			mntmSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.sacuvajUFajl();
+				}
+			});
+			mntmSave.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
+			mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		}
+		return mntmSave;
+	}
+	private JMenuItem getMntmExit() {
+		if (mntmExit == null) {
+			mntmExit = new JMenuItem("Exit");
+			mntmExit.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.zatvoriAplikaciju();
+				}
+			});
+			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
+			mntmExit.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/icons/iconExit.png")));
+		}
+		return mntmExit;
+	}
+	private JSeparator getSeparator() {
+		if (separator == null) {
+			separator = new JSeparator();
+		}
+		return separator;
+	}
+	public JPanel getEastPanel() {
+		if (eastPanel == null) {
+			eastPanel = new JPanel();
+			eastPanel.setVisible(false);
+			eastPanel.setPreferredSize(new Dimension(120, 10));
+			eastPanel.add(getBtnDodaj());
+			eastPanel.add(getBtnIzbrii());
+			eastPanel.add(getBtnIzmeni());
+		}
+		return eastPanel;
+	}
+	private JPanel getSouthPanel() {
+		if (southPanel == null) {
+			southPanel = new JPanel();
+			southPanel.setPreferredSize(new Dimension(10, 40));
+			southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+			southPanel.add(getBtnAdministrator());
+			southPanel.add(getBtnOdjaviteSe());
+		}
+		return southPanel;
+	}
+	private JScrollPane getScrollPane() {
+		if (scrollPane == null) {
+			scrollPane = new JScrollPane();
+			scrollPane.setViewportView(getTable());
+		}
+		return scrollPane;
+	}
+	private JTable getTable() {
+		if (table == null) {
+			table = new JTable();
+		}
+		return table;
+	}
+	public JButton getBtnAdministrator() {
+		if (btnAdministrator == null) {
+			btnAdministrator = new JButton("Administrator");
+			btnAdministrator.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.ulogujSeKaoAdmin();
+				}
+			});
+			btnAdministrator.setPreferredSize(new Dimension(120, 25));
+		}
+		return btnAdministrator;
+	}
+	private JButton getBtnDodaj() {
+		if (btnDodaj == null) {
+			btnDodaj = new JButton("Dodaj");
+			btnDodaj.setPreferredSize(new Dimension(115, 25));
+		}
+		return btnDodaj;
+	}
+	private JButton getBtnIzbrii() {
+		if (btnIzbrii == null) {
+			btnIzbrii = new JButton("Izbri\u0161i");
+			btnIzbrii.setPreferredSize(new Dimension(115, 25));
+		}
+		return btnIzbrii;
+	}
+	private JButton getBtnIzmeni() {
+		if (btnIzmeni == null) {
+			btnIzmeni = new JButton("Izmeni");
+			btnIzmeni.setPreferredSize(new Dimension(115, 25));
+		}
+		return btnIzmeni;
+	}
+	public JButton getBtnOdjaviteSe() {
+		if (btnOdjaviteSe == null) {
+			btnOdjaviteSe = new JButton("Odjavite se");
+			btnOdjaviteSe.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.odjaviSe();
+				}
+			});
+			btnOdjaviteSe.setPreferredSize(new Dimension(120, 25));
+			btnOdjaviteSe.setVisible(false);
+		}
+		return btnOdjaviteSe;
+	}
+}
