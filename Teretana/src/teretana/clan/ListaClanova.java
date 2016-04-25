@@ -8,6 +8,14 @@ import teretana.clan.interfejs.ListaClanovaInterfejs;
 public class ListaClanova implements ListaClanovaInterfejs {
 
 	private List<Clan> clanovi;
+	
+	
+	public ListaClanova() {
+		if(clanovi == null){
+			
+			clanovi = new LinkedList<>();
+		}
+	}
 
 	public List<Clan> getListaClanova() {
 		if (clanovi == null) {

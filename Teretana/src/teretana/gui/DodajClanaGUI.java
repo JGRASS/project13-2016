@@ -244,6 +244,11 @@ public class DodajClanaGUI extends JFrame {
 	private JButton getBtnDodaj() {
 		if (btnDodaj == null) {
 			btnDodaj = new JButton("Dodaj");
+			btnDodaj.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(),txtIme.getText(),txtPrezime.getText(),comboBox.getSelectedItem().toString(),comboBox_1.getSelectedItem().toString(),txtBrojTelefona.getText(),txtAdresa.getText(),txtTezina.getText(),txtVisina.getText(),pwdSifra.getText());
+				}
+			});
 		}
 		return btnDodaj;
 	}

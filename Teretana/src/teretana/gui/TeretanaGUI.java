@@ -198,7 +198,7 @@ public class TeretanaGUI extends JFrame {
 		return scrollPane;
 	}
 
-	private JTable getTable() {
+	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
 			table.setFillsViewportHeight(true);
