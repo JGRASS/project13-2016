@@ -23,6 +23,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionEvent;
 
+/**
+ * Prozor koji omogucava dodavanje novog clana
+ * 
+ * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ *
+ */
 public class DodajClanaGUI extends JFrame {
 
 	private JPanel contentPane;
@@ -50,8 +56,6 @@ public class DodajClanaGUI extends JFrame {
 	private JPasswordField pwdSifra;
 	private JButton btnDodaj;
 	private JButton btnOdustani;
-
-	
 
 	/**
 	 * Create the frame.
@@ -104,12 +108,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return panel;
 	}
+
 	private JLabel getLblBrojClanskeKarte() {
 		if (lblBrojClanskeKarte == null) {
 			lblBrojClanskeKarte = new JLabel("Broj \u010Dlanske karte");
 		}
 		return lblBrojClanskeKarte;
 	}
+
 	private JTextField getTxtBrojClanskeKarte() {
 		if (txtBrojClanskeKarte == null) {
 			txtBrojClanskeKarte = new JTextField();
@@ -117,12 +123,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return txtBrojClanskeKarte;
 	}
+
 	private JLabel getLblIme() {
 		if (lblIme == null) {
 			lblIme = new JLabel("Ime");
 		}
 		return lblIme;
 	}
+
 	private JTextField getTxtIme() {
 		if (txtIme == null) {
 			txtIme = new JTextField();
@@ -130,12 +138,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return txtIme;
 	}
+
 	private JLabel getLblPrezime() {
 		if (lblPrezime == null) {
 			lblPrezime = new JLabel("Prezime");
 		}
 		return lblPrezime;
 	}
+
 	private JTextField getTxtPrezime() {
 		if (txtPrezime == null) {
 			txtPrezime = new JTextField();
@@ -143,12 +153,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return txtPrezime;
 	}
+
 	private JLabel getLblGodiste() {
 		if (lblGodiste == null) {
 			lblGodiste = new JLabel("Godi\u0161te");
 		}
 		return lblGodiste;
 	}
+
 	private JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
@@ -158,12 +170,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return comboBox;
 	}
+
 	private JLabel getLblPol() {
 		if (lblPol == null) {
 			lblPol = new JLabel("Pol");
 		}
 		return lblPol;
 	}
+
 	private JComboBox getComboBox_1() {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
@@ -172,12 +186,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return comboBox_1;
 	}
+
 	private JLabel getLblBrojTelefona() {
 		if (lblBrojTelefona == null) {
 			lblBrojTelefona = new JLabel("Broj telefona");
 		}
 		return lblBrojTelefona;
 	}
+
 	private JFormattedTextField getTxtBrojTelefona() {
 		if (txtBrojTelefona == null) {
 			try {
@@ -186,16 +202,18 @@ public class DodajClanaGUI extends JFrame {
 			} catch (ParseException e) {
 				txtBrojTelefona = new JFormattedTextField();
 			}
-			
+
 		}
 		return txtBrojTelefona;
 	}
+
 	private JLabel getLblAdresa() {
 		if (lblAdresa == null) {
 			lblAdresa = new JLabel("Adresa");
 		}
 		return lblAdresa;
 	}
+
 	private JTextField getTxtAdresa() {
 		if (txtAdresa == null) {
 			txtAdresa = new JTextField();
@@ -203,12 +221,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return txtAdresa;
 	}
+
 	private JLabel getLblTezina() {
 		if (lblTezina == null) {
 			lblTezina = new JLabel("Te\u017Eina");
 		}
 		return lblTezina;
 	}
+
 	private JTextField getTxtTezina() {
 		if (txtTezina == null) {
 			txtTezina = new JTextField();
@@ -216,12 +236,14 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return txtTezina;
 	}
+
 	private JLabel getLblVisina() {
 		if (lblVisina == null) {
 			lblVisina = new JLabel("Visina");
 		}
 		return lblVisina;
 	}
+
 	private JTextField getTxtVisina() {
 		if (txtVisina == null) {
 			txtVisina = new JTextField();
@@ -229,30 +251,37 @@ public class DodajClanaGUI extends JFrame {
 		}
 		return txtVisina;
 	}
+
 	private JLabel getLblSifra() {
 		if (lblSifra == null) {
 			lblSifra = new JLabel("\u0160ifra");
 		}
 		return lblSifra;
 	}
+
 	private JPasswordField getPwdSifra() {
 		if (pwdSifra == null) {
 			pwdSifra = new JPasswordField();
 		}
 		return pwdSifra;
 	}
+
 	private JButton getBtnDodaj() {
 		if (btnDodaj == null) {
 			btnDodaj = new JButton("Dodaj");
 			btnDodaj.setFocusTraversalPolicyProvider(true);
 			btnDodaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(),txtIme.getText(),txtPrezime.getText(),comboBox.getSelectedItem().toString(),comboBox_1.getSelectedItem().toString(),txtBrojTelefona.getText(),txtAdresa.getText(),txtTezina.getText(),txtVisina.getText(),pwdSifra.getText());
+					GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(), txtIme.getText(), txtPrezime.getText(),
+							comboBox.getSelectedItem().toString(), comboBox_1.getSelectedItem().toString(),
+							txtBrojTelefona.getText(), txtAdresa.getText(), txtTezina.getText(), txtVisina.getText(),
+							pwdSifra.getText());
 				}
 			});
 		}
 		return btnDodaj;
 	}
+
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");

@@ -17,6 +17,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Prozor omogucava izmenu podataka o clanu teretane
+ * 
+ * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ *
+ */
 public class IzmeniClanaGUI extends JFrame {
 
 	private JPanel contentPane;
@@ -74,18 +80,21 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return lblBrojTelefona;
 	}
+
 	public JFormattedTextField getTxtBrojtelefona() {
 		if (txtBrojtelefona == null) {
 			txtBrojtelefona = new JFormattedTextField();
 		}
 		return txtBrojtelefona;
 	}
+
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Adresa");
 		}
 		return lblNewLabel;
 	}
+
 	public JTextField getTxtAdresa() {
 		if (txtAdresa == null) {
 			txtAdresa = new JTextField();
@@ -93,12 +102,14 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return txtAdresa;
 	}
+
 	private JLabel getLblVisina() {
 		if (lblVisina == null) {
 			lblVisina = new JLabel("Visina");
 		}
 		return lblVisina;
 	}
+
 	public JTextField getTxtVisina() {
 		if (txtVisina == null) {
 			txtVisina = new JTextField();
@@ -106,12 +117,14 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return txtVisina;
 	}
+
 	private JLabel getLblTezina() {
 		if (lblTezina == null) {
 			lblTezina = new JLabel("Te\u017Eina");
 		}
 		return lblTezina;
 	}
+
 	public JTextField getTxtTezina() {
 		if (txtTezina == null) {
 			txtTezina = new JTextField();
@@ -119,12 +132,14 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return txtTezina;
 	}
+
 	private JLabel getLblSifra() {
 		if (lblSifra == null) {
 			lblSifra = new JLabel("\u0160ifra");
 		}
 		return lblSifra;
 	}
+
 	public JTextField getTxtSifra() {
 		if (txtSifra == null) {
 			txtSifra = new JTextField();
@@ -132,17 +147,20 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return txtSifra;
 	}
+
 	private JButton getBtnIzmeni() {
 		if (btnIzmeni == null) {
 			btnIzmeni = new JButton("Izmeni");
 			btnIzmeni.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GUIKontroler.izmeniClana(index, txtBrojtelefona.getText(),txtAdresa.getText(),txtTezina.getText(), txtVisina.getText(), txtSifra.getText());
+					GUIKontroler.izmeniClana(index, txtBrojtelefona.getText(), txtAdresa.getText(), txtTezina.getText(),
+							txtVisina.getText(), txtSifra.getText());
 				}
 			});
 		}
 		return btnIzmeni;
 	}
+
 	private JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");

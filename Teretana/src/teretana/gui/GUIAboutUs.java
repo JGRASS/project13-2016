@@ -17,6 +17,12 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 
+/**
+ * Prozor koji prikazuje informacije o autorima programa
+ * 
+ * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ *
+ */
 public class GUIAboutUs extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
@@ -26,9 +32,7 @@ public class GUIAboutUs extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	
-	
-	
+
 	public GUIAboutUs(Frame parent, boolean modal) {
 		super(parent, modal);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIAboutUs.class.getResource("/icons/icon.png")));
@@ -46,8 +50,6 @@ public class GUIAboutUs extends JDialog {
 			panel.add(getTxtrOvaAplikacijaJe());
 		}
 	}
-
-	
 
 	private JLabel getLabel() {
 		if (label == null) {

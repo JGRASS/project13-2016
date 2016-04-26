@@ -31,6 +31,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
+/**
+ * Glavni prozor aplikacije
+ * 
+ * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ *
+ */
 public class TeretanaGUI extends JFrame {
 
 	private JPanel contentPane;
@@ -205,8 +211,7 @@ public class TeretanaGUI extends JFrame {
 		if (table == null) {
 			table = new JTable();
 			table.setFillsViewportHeight(true);
-			table.setModel(new DefaultTableModel(
-					new Object[] { "Broj �lanske karte", "Ime", "Prezime", "Pol" }, 0) {
+			table.setModel(new DefaultTableModel(new Object[] { "Broj �lanske karte", "Ime", "Prezime", "Pol" }, 0) {
 
 				public boolean isCellEditable(int row, int column) {
 					return false;
@@ -252,11 +257,12 @@ public class TeretanaGUI extends JFrame {
 			btnIzbrii.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int red = getTable().getSelectedRow();
-					
+
 					if (red >= 0) {
-						GUIKontroler.izbrisiRedIzTabele(red, (String) getTable().getValueAt(red, 0)); 
+						GUIKontroler.izbrisiRedIzTabele(red, (String) getTable().getValueAt(red, 0));
 					} else {
-						JOptionPane.showMessageDialog(getTable(), "Niste selektovali �lana !", "Gre�ka", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali �lana !", "Gre�ka",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -271,11 +277,12 @@ public class TeretanaGUI extends JFrame {
 			btnIzmeni.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					int red = getTable().getSelectedRow();
-					
+
 					if (red >= 0) {
 						GUIKontroler.otvoriIzmeniClanaGUI(red);
 					} else {
-						JOptionPane.showMessageDialog(getTable(), "Niste selektovali �lana !", "Gre�ka", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali �lana !", "Gre�ka",
+								JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -297,6 +304,7 @@ public class TeretanaGUI extends JFrame {
 		}
 		return btnOdjaviteSe;
 	}
+
 	private JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("           ");
