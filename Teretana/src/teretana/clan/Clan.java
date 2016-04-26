@@ -1,6 +1,8 @@
 package teretana.clan;
 
-public class Clan {
+import java.io.Serializable;
+
+public class Clan implements Serializable {
 
 	private String brojClanskeKarte;
 	private String ime;

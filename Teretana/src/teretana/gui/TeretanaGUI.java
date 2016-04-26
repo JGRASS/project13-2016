@@ -300,6 +300,7 @@ public class TeretanaGUI extends JFrame {
 	private JLabel getLabel() {
 		if (label == null) {
 			label = new JLabel("           ");
+			label.setPreferredSize(new Dimension(130, 16));
 		}
 		return label;
 	}

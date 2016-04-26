@@ -93,5 +93,17 @@ public class ListaClanova implements ListaClanovaInterfejs {
 	public Clan getClan(int index) {
 		return clanovi.get(index);
 	}
+	
+	@Override
+	public void dodajClanove(LinkedList<Clan> clanovi) {
+		this.clanovi = clanovi;
+	}
+	
+	public int size() {
+		if(clanovi == null){
+			return 0;
+		}
+		return clanovi.size();
+	}
 
 }

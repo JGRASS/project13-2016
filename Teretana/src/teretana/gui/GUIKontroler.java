@@ -1,8 +1,16 @@
 package teretana.gui;
 
 import java.awt.EventQueue;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.util.LinkedList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -41,7 +49,9 @@ public class GUIKontroler {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Unesite sifru:");
 		JPasswordField pass = new JPasswordField(10);
-
+		pass.setFocusable(true);
+		pass.grabFocus();
+		
 		panel.add(label);
 		panel.add(pass);
 		String[] options = new String[] { "Cancel", "OK" };
@@ -93,8 +103,32 @@ public class GUIKontroler {
 		if (izbor == JFileChooser.APPROVE_OPTION) {
 			File f = fc.getSelectedFile();
 
-			String fileName = f.getName();
-			// TODO: implementirati dalje...
+			String fileName = f.getAbsolutePath();
+			
+			try {
+				ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileName)));
+				
+				final LinkedList<Clan> clanovi = (LinkedList<Clan>) in.readObject();
+				
+				listaClanova.dodajClanove(clanovi);
+				popuniTabelu();
+				
+				in.close();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Greska pri ucitavanju clanova!", "Greska", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
+	}
+
+	private static void popuniTabelu() {
+		DefaultTableModel dfm = (DefaultTableModel) teretanaGui.getTable().getModel();
+		
+		dfm.setRowCount(0);
+		
+		for (int i = 0; i < listaClanova.size(); i++) {
+			Clan c = listaClanova.getClan(i);
+			dfm.addRow(new Object[] {c.getBrojClanskeKarte(), c.getIme(), c.getPrezime(), c.getPol()});
 		}
 	}
 
@@ -105,7 +139,32 @@ public class GUIKontroler {
 		int izbor = fc.showSaveDialog(teretanaGui.getContentPane());
 
 		if (izbor == JFileChooser.APPROVE_OPTION) {
-			// TODO: implementirati...
+			File f = fc.getSelectedFile();
+			
+			String imeFajla;
+			
+			if (!f.exists()) {
+				imeFajla = f.getAbsolutePath() + ".gym";
+			} else {
+				imeFajla = f.getAbsolutePath();
+			}
+			
+			
+			try {
+				ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(imeFajla)));
+				
+				ListaClanova l = (ListaClanova) listaClanova;
+				
+				out.writeObject((LinkedList<Clan>)l.getListaClanova());
+				
+				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clanovi su uspesno sacuvani u datoteci.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+
+				
+				out.close();				
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Greska prilikom cuvanja clanova.", "Obavestenje", JOptionPane.ERROR_MESSAGE);
+			}
+			
 		}
 	}
 
@@ -134,11 +193,15 @@ public class GUIKontroler {
 	}
 
 	public static void izbrisiRedIzTabele(int red, String id) {
-		try {
-			listaClanova.izbrisiClana(id);
-			izbrisiClanaIzTabele(red);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+		int izbor = JOptionPane.showConfirmDialog(teretanaGui.getContentPane(), "Da li ste sigurni da zelite da obrisete izabranog clana?", "Potrvrdite brisanje", JOptionPane.YES_NO_OPTION);
+		if (izbor == JOptionPane.YES_OPTION) {
+			try {
+				listaClanova.izbrisiClana(id);
+				izbrisiClanaIzTabele(red);
+				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Izabrani clan je uspesno obrisan.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
@@ -209,6 +272,7 @@ public class GUIKontroler {
 			listaClanova.izmeniClana(index, brojTelefona, adresa, Double.parseDouble(tezina),
 					Double.parseDouble(visina), sifra);
 			zatvroiImeniClanaGUI();
+			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clan je uspesno izmenjen.", "Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

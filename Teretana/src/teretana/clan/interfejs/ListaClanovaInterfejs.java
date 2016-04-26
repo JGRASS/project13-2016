@@ -1,5 +1,7 @@
 package teretana.clan.interfejs;
 
+import java.util.LinkedList;
+
 import teretana.clan.Clan;
 
 public interface ListaClanovaInterfejs {
@@ -15,5 +17,9 @@ public interface ListaClanovaInterfejs {
 			throws Exception;
 	
 	public Clan getClan(int index);
+	
+	public void dodajClanove(LinkedList<Clan> clanovi);
+	
+	public int size();
 
 }
