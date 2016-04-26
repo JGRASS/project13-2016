@@ -64,7 +64,7 @@ public class DodajClanaGUI extends JFrame {
 			}
 		});
 		setResizable(false);
-		setTitle("Dodaj \u010Dlana");
+		setTitle("Dodaj clana");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(DodajClanaGUI.class.getResource("/icons/icon.png")));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 572, 597);
@@ -106,7 +106,7 @@ public class DodajClanaGUI extends JFrame {
 	}
 	private JLabel getLblBrojClanskeKarte() {
 		if (lblBrojClanskeKarte == null) {
-			lblBrojClanskeKarte = new JLabel("Broj \u010Dlanske karte");
+			lblBrojClanskeKarte = new JLabel("Broj clanske karte");
 		}
 		return lblBrojClanskeKarte;
 	}
@@ -145,7 +145,7 @@ public class DodajClanaGUI extends JFrame {
 	}
 	private JLabel getLblGodiste() {
 		if (lblGodiste == null) {
-			lblGodiste = new JLabel("Godi\u0161te");
+			lblGodiste = new JLabel("Godiste");
 		}
 		return lblGodiste;
 	}
@@ -168,7 +168,7 @@ public class DodajClanaGUI extends JFrame {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
 			comboBox_1.addItem("M");
-			comboBox_1.addItem("�");
+			comboBox_1.addItem("Z");
 		}
 		return comboBox_1;
 	}
@@ -205,7 +205,7 @@ public class DodajClanaGUI extends JFrame {
 	}
 	private JLabel getLblTezina() {
 		if (lblTezina == null) {
-			lblTezina = new JLabel("Te\u017Eina");
+			lblTezina = new JLabel("Tezina");
 		}
 		return lblTezina;
 	}
@@ -231,7 +231,7 @@ public class DodajClanaGUI extends JFrame {
 	}
 	private JLabel getLblSifra() {
 		if (lblSifra == null) {
-			lblSifra = new JLabel("\u0160ifra");
+			lblSifra = new JLabel("Sifra");
 		}
 		return lblSifra;
 	}

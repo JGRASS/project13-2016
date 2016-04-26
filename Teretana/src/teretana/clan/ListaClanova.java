@@ -99,6 +99,7 @@ public class ListaClanova implements ListaClanovaInterfejs {
 		this.clanovi = clanovi;
 	}
 	
+	@Override
 	public int size() {
 		if(clanovi == null){
 			return 0;

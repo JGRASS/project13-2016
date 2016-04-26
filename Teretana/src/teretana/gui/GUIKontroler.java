@@ -41,7 +41,7 @@ public class GUIKontroler {
 	}
 
 	public static void korisnikNijeUneoIspravnuSifru() {
-		JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Niste uneli ispravnu �ifru!", "Obave�tenje",
+		JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Niste uneli ispravnu sifru!", "Obavestenje",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
@@ -69,7 +69,7 @@ public class GUIKontroler {
 					teretanaGui.getBtnOdjaviteSe().setVisible(true);
 				} else {
 					pass.setText("");
-					label.setText("Pogrešna šifra, pokušajte ponovo:");
+					label.setText("Pogresna sifra, pokusajte ponovo:");
 				}
 			} else {
 				signal = true;
@@ -85,7 +85,7 @@ public class GUIKontroler {
 
 	public static void zatvoriAplikaciju() {
 		int zatvori = JOptionPane.showConfirmDialog(teretanaGui.getContentPane(),
-				"Da li ste sigurni da �elite da iza�ete iz programa?", "Izlazak iz programa",
+				"Da li ste sigurni da zelite da izadjete iz programa?", "Izlazak iz programa",
 				JOptionPane.YES_NO_OPTION);
 		if (zatvori == JOptionPane.YES_OPTION) {
 			System.exit(0);
@@ -255,7 +255,7 @@ public class GUIKontroler {
 			listaClanova.dodajClana(c);
 			zatvoriDodajClanaGUI();
 			dodajClanaUTabelu(c);
-			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "�lan je uspje�no dodat.", "Obave�tenje",
+			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clan je uspesno dodat.", "Obavestenje",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 		}
