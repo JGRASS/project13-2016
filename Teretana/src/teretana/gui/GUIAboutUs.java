@@ -20,7 +20,7 @@ import java.awt.Toolkit;
 /**
  * Prozor koji prikazuje informacije o autorima programa
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class GUIAboutUs extends JDialog {

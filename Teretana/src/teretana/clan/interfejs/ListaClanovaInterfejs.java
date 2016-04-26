@@ -7,7 +7,7 @@ import teretana.clan.Clan;
 /**
  * Interfejs koji definise koja ponasanja su dozvoljena u klasi ListaClanova
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public interface ListaClanovaInterfejs {

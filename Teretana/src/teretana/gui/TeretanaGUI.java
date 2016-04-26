@@ -34,7 +34,7 @@ import javax.swing.JLabel;
 /**
  * Glavni prozor aplikacije
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class TeretanaGUI extends JFrame {

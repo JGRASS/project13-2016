@@ -20,7 +20,7 @@ import java.awt.event.ActionEvent;
 /**
  * Prozor omogucava izmenu podataka o clanu teretane
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class IzmeniClanaGUI extends JFrame {
@@ -47,7 +47,7 @@ public class IzmeniClanaGUI extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				GUIKontroler.zatvroiImeniClanaGUI();
+				GUIKontroler.zatvoriIzmeniClanaGUI();
 			}
 		});
 		this.index = index;
@@ -166,7 +166,7 @@ public class IzmeniClanaGUI extends JFrame {
 			btnOdustani = new JButton("Odustani");
 			btnOdustani.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GUIKontroler.zatvroiImeniClanaGUI();
+					GUIKontroler.zatvoriIzmeniClanaGUI();
 				}
 			});
 		}

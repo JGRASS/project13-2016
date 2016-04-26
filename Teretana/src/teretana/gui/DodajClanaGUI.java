@@ -26,7 +26,7 @@ import java.awt.event.ActionEvent;
 /**
  * Prozor koji omogucava dodavanje novog clana
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class DodajClanaGUI extends JFrame {

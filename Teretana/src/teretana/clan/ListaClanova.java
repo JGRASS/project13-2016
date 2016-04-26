@@ -8,7 +8,7 @@ import teretana.clan.interfejs.ListaClanovaInterfejs;
 /**
  * Klasa predstavlja listu Clanova.
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class ListaClanova implements ListaClanovaInterfejs {

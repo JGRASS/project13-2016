@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Klasa predstavlja clana teretane.
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class Clan implements Serializable {

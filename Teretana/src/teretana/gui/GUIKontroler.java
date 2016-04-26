@@ -27,7 +27,7 @@ import teretana.clan.interfejs.ListaClanovaInterfejs;
 /**
  * Klasa koja je posrednik izmedju GUI-a i domenskih klasa
  * 
- * @author Filip Furtula, Edis Šarda, Marko Stanimirović
+ * @author Filip Furtula, Edis Sarda, Marko Stanimirovic
  *
  */
 public class GUIKontroler {
@@ -53,19 +53,33 @@ public class GUIKontroler {
 	 */
 	private static IzmeniClanaGUI izmeniClanaGui;
 
+	/**
+	 * Metoda postavlja istocni panel da bude vidljiv
+	 */
 	public static void prikaziEastPanel() {
 		teretanaGui.getEastPanel().setVisible(true);
 	}
 
+	/**
+	 * Metoda postavlja da istocni panel ne bude vidljiv
+	 */
 	public static void sakrijEastPanel() {
 		teretanaGui.getEastPanel().setVisible(false);
 	}
 
+	/**
+	 * U slucaju da korisnik ne unese ispravnu sifru, metoda poziva dijalog koji
+	 * obavestava korisnika o tome
+	 */
 	public static void korisnikNijeUneoIspravnuSifru() {
 		JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Niste uneli ispravnu sifru!", "Obavestenje",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
+	/**
+	 * Metoda poziva dijaloski prozor uz pomoc kog administrator moze da se
+	 * uloguje
+	 */
 	public static void ulogujSeKaoAdmin() {
 		JPanel panel = new JPanel();
 		JLabel label = new JLabel("Unesite sifru:");
@@ -98,12 +112,20 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Metoda se poziva kada se administrator odjavi, Forma se vraca u
+	 * korisnicki rezim rada
+	 */
 	public static void odjaviSe() {
 		teretanaGui.getBtnAdministrator().setVisible(true);
 		teretanaGui.getBtnOdjaviteSe().setVisible(false);
 		sakrijEastPanel();
 	}
 
+	/**
+	 * Metoda poziva dijalog koji pita korisnika da li zeli da ugasi aplikaciju,
+	 * Ako on prihvati, aplikacija se gasi, u suprotnom se ne gasi
+	 */
 	public static void zatvoriAplikaciju() {
 		int zatvori = JOptionPane.showConfirmDialog(teretanaGui.getContentPane(),
 				"Da li ste sigurni da zelite da izadjete iz programa?", "Izlazak iz programa",
@@ -113,6 +135,11 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Metoda poziva JFileChooser dijalog tipa Open, u kom korisnik moze da
+	 * izabere datoteku sa ekstenzijom .gym koju zeli da ucita u tabelu
+	 * aplikacije
+	 */
 	public static void otvoriFajl() {
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Gym files", "gym");
@@ -143,6 +170,9 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Uz pomoc ove metode se puni tabela iz liste clanova
+	 */
 	private static void popuniTabelu() {
 		DefaultTableModel dfm = (DefaultTableModel) teretanaGui.getTable().getModel();
 
@@ -154,6 +184,11 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Metoda poziva JFileChooser dijalog tipa Save, u kom korisnik moze da
+	 * izabere mesto u memoriji gde zeli da cuva podatke o clanovima teretane
+	 * koji se nalaze u tabeli
+	 */
 	public static void sacuvajUFajl() {
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Gym files", "gym");
@@ -191,12 +226,20 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Pozivanjem ove metode se na ekran prikazuje dijaloski prozor sa kratkim
+	 * opisom autora aplikacije
+	 */
 	public static void prikaziAboutUs() {
 		guiAboutUs = new GUIAboutUs(teretanaGui, true);
 		guiAboutUs.setLocationRelativeTo(null);
 		guiAboutUs.setVisible(true);
 	}
 
+	/**
+	 * Pozivanjem ove metode se na ekran prikazuje prozor u kom se mogu dodati
+	 * podaci o clanu teretane
+	 */
 	public static void prikaziDodajClanaGUI() {
 		if (dodajClanaGui == null) {
 			dodajClanaGui = new DodajClanaGUI();
@@ -207,6 +250,9 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Pozivanjem ove metode se zatvara prozor za dodavanje clana
+	 */
 	public static void zatvoriDodajClanaGUI() {
 		if (dodajClanaGui != null) {
 			dodajClanaGui.dispose();
@@ -215,9 +261,22 @@ public class GUIKontroler {
 
 	}
 
+	/**
+	 * Pozivanjem ove metode se brise selektovani clan iz tabele i iz liste
+	 * clanova. Ako nijedan red tabele nije selektovan, dijalogom se
+	 * administrator obavestava o tome, takodje ako administrator selektuje
+	 * clana kog zeli da obrise, pojavljuje se dijaloski prozor kojim on jos
+	 * jednom potvrdjuje brisanje. Ako potvrdi biva obavesten o brisanju u
+	 * dijalogu
+	 * 
+	 * @param red
+	 *            - selektovani clan iz tabele
+	 * @param id
+	 *            - broj clanske karte (jedinstveni identifikator)
+	 */
 	public static void izbrisiRedIzTabele(int red, String id) {
 		int izbor = JOptionPane.showConfirmDialog(teretanaGui.getContentPane(),
-				"Da li ste sigurni da zelite da obrisete izabranog clana?", "Potrvrdite brisanje",
+				"Da li ste sigurni da zelite da obrisete izabranog clana?", "Potvrdite brisanje",
 				JOptionPane.YES_NO_OPTION);
 		if (izbor == JOptionPane.YES_OPTION) {
 			try {
@@ -226,16 +285,29 @@ public class GUIKontroler {
 				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Izabrani clan je uspesno obrisan.",
 						"Obavestenje", JOptionPane.INFORMATION_MESSAGE);
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Gre�ka", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Greska", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
 
+	/**
+	 * Pomocna metoda metodi izbrisiRedIzTabele
+	 * 
+	 * @param red
+	 *            - selektovani clan iz tabele
+	 */
 	private static void izbrisiClanaIzTabele(int red) {
 		DefaultTableModel dtm = (DefaultTableModel) teretanaGui.getTable().getModel();
 		dtm.removeRow(red);
 	}
 
+	/**
+	 * Pozivanjem ove metode se otvara prozor u kom administrator moze da izmeni
+	 * podatke clana iz tabele kog je selektovao
+	 * 
+	 * @param index
+	 *            - selektovani red tabele
+	 */
 	public static void otvoriIzmeniClanaGUI(int index) {
 		if (izmeniClanaGui == null) {
 			izmeniClanaGui = new IzmeniClanaGUI(index);
@@ -247,6 +319,13 @@ public class GUIKontroler {
 		}
 	}
 
+	/**
+	 * Ova metoda puni polja podacima o clanu teretane koje administrator moze
+	 * da promeni
+	 * 
+	 * @param index
+	 *            - selektovani red tabele
+	 */
 	private static void popuniPolja(int index) {
 		Clan c = listaClanova.getClan(index);
 		izmeniClanaGui.getTxtBrojtelefona().setText(c.getBrojTelefona());
@@ -256,13 +335,41 @@ public class GUIKontroler {
 		izmeniClanaGui.getTxtSifra().setText(c.getSifra());
 	}
 
-	public static void zatvroiImeniClanaGUI() {
+	/**
+	 * Ova metoda zatvara prozor za menjanje podataka o clanu teretane
+	 */
+	public static void zatvoriIzmeniClanaGUI() {
 		if (izmeniClanaGui != null) {
 			izmeniClanaGui.dispose();
 			izmeniClanaGui = null;
 		}
 	}
 
+	/**
+	 * Ova metoda dodaje podatke o clanu teretane u tabelu i listu koje je
+	 * administrator uneo
+	 * 
+	 * @param brojClanskeKarte
+	 *            - broj clanske karte clana teretane
+	 * @param ime
+	 *            - ime clana teretane
+	 * @param prezime
+	 *            - prezime clana teretane
+	 * @param godiste
+	 *            - godiste clana teretane
+	 * @param pol
+	 *            - pol clana teretane
+	 * @param brojTelefona
+	 *            - broj telefona clana teretane
+	 * @param adresa
+	 *            - adresa clana teretane
+	 * @param tezina
+	 *            - tezina clana teretane
+	 * @param visina
+	 *            - visina clana teretane
+	 * @param sifra
+	 *            - sifra clana teretane
+	 */
 	public static void dodajClana(String brojClanskeKarte, String ime, String prezime, String godiste, String pol,
 			String brojTelefona, String adresa, String tezina, String visina, String sifra) {
 		Clan c = new Clan();
@@ -287,17 +394,39 @@ public class GUIKontroler {
 		}
 	}
 
-	public static void dodajClanaUTabelu(Clan c) {
+	/**
+	 * Metoda dodaje clana teretane u tabelu
+	 * 
+	 * @param c
+	 *            - clan teretane
+	 */
+	private static void dodajClanaUTabelu(Clan c) {
 		DefaultTableModel dtm = (DefaultTableModel) teretanaGui.getTable().getModel();
 		dtm.addRow(new Object[] { c.getBrojClanskeKarte(), c.getIme(), c.getPrezime(), c.getPol() });
 	}
 
+	/**
+	 * Metoda menja podatke o selektovanom clanu u tabeli i listi clanova
+	 * 
+	 * @param index
+	 *            - selektovani red u tabeli
+	 * @param brojTelefona
+	 *            - broj telefona clana teretane
+	 * @param adresa
+	 *            - adresa clana teretane
+	 * @param tezina
+	 *            - tezina clana teretane
+	 * @param visina
+	 *            - visina clana teretane
+	 * @param sifra
+	 *            - sifra clana teretane
+	 */
 	public static void izmeniClana(int index, String brojTelefona, String adresa, String tezina, String visina,
 			String sifra) {
 		try {
 			listaClanova.izmeniClana(index, brojTelefona, adresa, Double.parseDouble(tezina),
 					Double.parseDouble(visina), sifra);
-			zatvroiImeniClanaGUI();
+			zatvoriIzmeniClanaGUI();
 			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clan je uspesno izmenjen.", "Obavestenje",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (NumberFormatException e) {
