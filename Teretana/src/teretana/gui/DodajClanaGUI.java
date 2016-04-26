@@ -168,7 +168,7 @@ public class DodajClanaGUI extends JFrame {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
 			comboBox_1.addItem("M");
-			comboBox_1.addItem("Ž");
+			comboBox_1.addItem("ï¿½");
 		}
 		return comboBox_1;
 	}
@@ -244,6 +244,7 @@ public class DodajClanaGUI extends JFrame {
 	private JButton getBtnDodaj() {
 		if (btnDodaj == null) {
 			btnDodaj = new JButton("Dodaj");
+			btnDodaj.setFocusTraversalPolicyProvider(true);
 			btnDodaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(),txtIme.getText(),txtPrezime.getText(),comboBox.getSelectedItem().toString(),comboBox_1.getSelectedItem().toString(),txtBrojTelefona.getText(),txtAdresa.getText(),txtTezina.getText(),txtVisina.getText(),pwdSifra.getText());

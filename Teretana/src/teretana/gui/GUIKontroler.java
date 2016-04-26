@@ -5,18 +5,22 @@ import java.io.File;
 import java.io.FileFilter;
 
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import teretana.clan.Clan;
 import teretana.clan.ListaClanova;
+import teretana.clan.interfejs.ListaClanovaInterfejs;
 
 public class GUIKontroler {
 
 	private static TeretanaGUI teretanaGui;
 	private static GUIAboutUs guiAboutUs;
-	private static ListaClanova listaClanova;
+	private static ListaClanovaInterfejs listaClanova;
 	private static DodajClanaGUI dodajClanaGui;
 	private static IzmeniClanaGUI izmeniClanaGui;
 
@@ -29,22 +33,36 @@ public class GUIKontroler {
 	}
 
 	public static void korisnikNijeUneoIspravnuSifru() {
-		JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Niste uneli ispravnu šifru!", "Obaveštenje",
+		JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Niste uneli ispravnu ï¿½ifru!", "Obaveï¿½tenje",
 				JOptionPane.ERROR_MESSAGE);
 	}
 
 	public static void ulogujSeKaoAdmin() {
-		String sifra = JOptionPane.showInputDialog(teretanaGui.getContentPane(), "Šifra:", "Unesite šifru:",
-				JOptionPane.OK_CANCEL_OPTION);
+		JPanel panel = new JPanel();
+		JLabel label = new JLabel("Unesite sifru:");
+		JPasswordField pass = new JPasswordField(10);
 
-		if (sifra != null) {
-			if (sifra.equals("admin")) {
-				prikaziEastPanel();
-				teretanaGui.getBtnAdministrator().setVisible(false);
-				teretanaGui.getBtnOdjaviteSe().setVisible(true);
+		panel.add(label);
+		panel.add(pass);
+		String[] options = new String[] { "Cancel", "OK" };
+		boolean signal = false;
+		while (!signal) {
+			int option = JOptionPane.showOptionDialog(null, panel, "Verifikacija", JOptionPane.NO_OPTION,
+					JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
+			if (option == 1) // pressing OK button
+			{
+				String password = pass.getText();
+				if (password.equals("admin")) {
+					signal = true;
+					prikaziEastPanel();
+					teretanaGui.getBtnAdministrator().setVisible(false);
+					teretanaGui.getBtnOdjaviteSe().setVisible(true);
+				} else {
+					pass.setText("");
+					label.setText("PogreÅ¡na Å¡ifra, pokuÅ¡ajte ponovo:");
+				}
 			} else {
-				korisnikNijeUneoIspravnuSifru();
-
+				signal = true;
 			}
 		}
 	}
@@ -57,7 +75,7 @@ public class GUIKontroler {
 
 	public static void zatvoriAplikaciju() {
 		int zatvori = JOptionPane.showConfirmDialog(teretanaGui.getContentPane(),
-				"Da li ste sigurni da želite da izaðete iz programa?", "Izlazak iz programa",
+				"Da li ste sigurni da ï¿½elite da izaï¿½ete iz programa?", "Izlazak iz programa",
 				JOptionPane.YES_NO_OPTION);
 		if (zatvori == JOptionPane.YES_OPTION) {
 			System.exit(0);
@@ -120,7 +138,7 @@ public class GUIKontroler {
 			listaClanova.izbrisiClana(id);
 			izbrisiClanaIzTabele(red);
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(teretanaGui, e.getMessage(), "Greï¿½ka", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -129,14 +147,24 @@ public class GUIKontroler {
 		dtm.removeRow(red);
 	}
 
-	public static void otvoriIzmeniClanaGUI() {
+	public static void otvoriIzmeniClanaGUI(int index) {
 		if (izmeniClanaGui == null) {
-			izmeniClanaGui = new IzmeniClanaGUI();
+			izmeniClanaGui = new IzmeniClanaGUI(index);
 			izmeniClanaGui.setLocationRelativeTo(null);
+			popuniPolja(index);
 			izmeniClanaGui.setVisible(true);
 		} else {
 			izmeniClanaGui.toFront();
 		}
+	}
+
+	private static void popuniPolja(int index) {
+		Clan c = listaClanova.getClan(index);
+		izmeniClanaGui.getTxtBrojtelefona().setText(c.getBrojTelefona());
+		izmeniClanaGui.getTxtAdresa().setText(c.getAdresa());
+		izmeniClanaGui.getTxtTezina().setText(c.getTezina() + "");
+		izmeniClanaGui.getTxtVisina().setText(c.getVisina() + "");
+		izmeniClanaGui.getTxtSifra().setText(c.getSifra());
 	}
 
 	public static void zatvroiImeniClanaGUI() {
@@ -164,7 +192,7 @@ public class GUIKontroler {
 			listaClanova.dodajClana(c);
 			zatvoriDodajClanaGUI();
 			dodajClanaUTabelu(c);
-			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Èlan je uspješno dodat.", "Obaveštenje",
+			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "ï¿½lan je uspjeï¿½no dodat.", "Obaveï¿½tenje",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
 		}
@@ -173,6 +201,21 @@ public class GUIKontroler {
 	public static void dodajClanaUTabelu(Clan c) {
 		DefaultTableModel dtm = (DefaultTableModel) teretanaGui.getTable().getModel();
 		dtm.addRow(new Object[] { c.getBrojClanskeKarte(), c.getIme(), c.getPrezime(), c.getPol() });
+	}
+
+	public static void izmeniClana(int index, String brojTelefona, String adresa, String tezina, String visina,
+			String sifra) {
+		try {
+			listaClanova.izmeniClana(index, brojTelefona, adresa, Double.parseDouble(tezina),
+					Double.parseDouble(visina), sifra);
+			zatvroiImeniClanaGUI();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

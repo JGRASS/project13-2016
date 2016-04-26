@@ -29,6 +29,7 @@ import java.awt.GridLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
 
 public class TeretanaGUI extends JFrame {
 
@@ -50,6 +51,7 @@ public class TeretanaGUI extends JFrame {
 	private JButton btnIzbrii;
 	private JButton btnIzmeni;
 	private JButton btnOdjaviteSe;
+	private JLabel label;
 
 	/**
 	 * Create the frame.
@@ -171,7 +173,8 @@ public class TeretanaGUI extends JFrame {
 		if (eastPanel == null) {
 			eastPanel = new JPanel();
 			eastPanel.setVisible(false);
-			eastPanel.setPreferredSize(new Dimension(120, 10));
+			eastPanel.setPreferredSize(new Dimension(180, 10));
+			eastPanel.add(getLabel());
 			eastPanel.add(getBtnDodaj());
 			eastPanel.add(getBtnIzbrii());
 			eastPanel.add(getBtnIzmeni());
@@ -203,7 +206,7 @@ public class TeretanaGUI extends JFrame {
 			table = new JTable();
 			table.setFillsViewportHeight(true);
 			table.setModel(new DefaultTableModel(
-					new Object[] { "Broj èlanske karte", "Ime", "Prezime", "Pol" }, 0) {
+					new Object[] { "Broj ï¿½lanske karte", "Ime", "Prezime", "Pol" }, 0) {
 
 				public boolean isCellEditable(int row, int column) {
 					return false;
@@ -218,6 +221,8 @@ public class TeretanaGUI extends JFrame {
 	public JButton getBtnAdministrator() {
 		if (btnAdministrator == null) {
 			btnAdministrator = new JButton("Administrator");
+			btnAdministrator.setFocusTraversalKeysEnabled(false);
+			btnAdministrator.setFocusTraversalPolicyProvider(true);
 			btnAdministrator.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					GUIKontroler.ulogujSeKaoAdmin();
@@ -236,7 +241,7 @@ public class TeretanaGUI extends JFrame {
 					GUIKontroler.prikaziDodajClanaGUI();
 				}
 			});
-			btnDodaj.setPreferredSize(new Dimension(115, 25));
+			btnDodaj.setPreferredSize(new Dimension(130, 40));
 		}
 		return btnDodaj;
 	}
@@ -251,11 +256,11 @@ public class TeretanaGUI extends JFrame {
 					if (red >= 0) {
 						GUIKontroler.izbrisiRedIzTabele(red, (String) getTable().getValueAt(red, 0)); 
 					} else {
-						JOptionPane.showMessageDialog(getTable(), "Niste selektovali èlana !", "Greška", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali ï¿½lana !", "Greï¿½ka", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
-			btnIzbrii.setPreferredSize(new Dimension(115, 25));
+			btnIzbrii.setPreferredSize(new Dimension(130, 40));
 		}
 		return btnIzbrii;
 	}
@@ -268,13 +273,13 @@ public class TeretanaGUI extends JFrame {
 					int red = getTable().getSelectedRow();
 					
 					if (red >= 0) {
-						GUIKontroler.otvoriIzmeniClanaGUI();
+						GUIKontroler.otvoriIzmeniClanaGUI(red);
 					} else {
-						JOptionPane.showMessageDialog(getTable(), "Niste selektovali èlana !", "Greška", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali ï¿½lana !", "Greï¿½ka", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
-			btnIzmeni.setPreferredSize(new Dimension(115, 25));
+			btnIzmeni.setPreferredSize(new Dimension(130, 40));
 		}
 		return btnIzmeni;
 	}
@@ -291,5 +296,11 @@ public class TeretanaGUI extends JFrame {
 			btnOdjaviteSe.setVisible(false);
 		}
 		return btnOdjaviteSe;
+	}
+	private JLabel getLabel() {
+		if (label == null) {
+			label = new JLabel("           ");
+		}
+		return label;
 	}
 }

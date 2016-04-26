@@ -32,17 +32,19 @@ public class IzmeniClanaGUI extends JFrame {
 	private JTextField txtSifra;
 	private JButton btnIzmeni;
 	private JButton btnOdustani;
+	private int index;
 
 	/**
 	 * Create the frame.
 	 */
-	public IzmeniClanaGUI() {
+	public IzmeniClanaGUI(int index) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				GUIKontroler.zatvroiImeniClanaGUI();
 			}
 		});
+		this.index = index;
 		setResizable(false);
 		setTitle("Izmeni \u010Dlana");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(IzmeniClanaGUI.class.getResource("/icons/icon.png")));
@@ -72,7 +74,7 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return lblBrojTelefona;
 	}
-	private JFormattedTextField getTxtBrojtelefona() {
+	public JFormattedTextField getTxtBrojtelefona() {
 		if (txtBrojtelefona == null) {
 			txtBrojtelefona = new JFormattedTextField();
 		}
@@ -84,7 +86,7 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return lblNewLabel;
 	}
-	private JTextField getTxtAdresa() {
+	public JTextField getTxtAdresa() {
 		if (txtAdresa == null) {
 			txtAdresa = new JTextField();
 			txtAdresa.setColumns(10);
@@ -97,7 +99,7 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return lblVisina;
 	}
-	private JTextField getTxtVisina() {
+	public JTextField getTxtVisina() {
 		if (txtVisina == null) {
 			txtVisina = new JTextField();
 			txtVisina.setColumns(10);
@@ -110,7 +112,7 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return lblTezina;
 	}
-	private JTextField getTxtTezina() {
+	public JTextField getTxtTezina() {
 		if (txtTezina == null) {
 			txtTezina = new JTextField();
 			txtTezina.setColumns(10);
@@ -123,7 +125,7 @@ public class IzmeniClanaGUI extends JFrame {
 		}
 		return lblSifra;
 	}
-	private JTextField getTxtSifra() {
+	public JTextField getTxtSifra() {
 		if (txtSifra == null) {
 			txtSifra = new JTextField();
 			txtSifra.setColumns(10);
@@ -135,6 +137,7 @@ public class IzmeniClanaGUI extends JFrame {
 			btnIzmeni = new JButton("Izmeni");
 			btnIzmeni.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					GUIKontroler.izmeniClana(index, txtBrojtelefona.getText(),txtAdresa.getText(),txtTezina.getText(), txtVisina.getText(), txtSifra.getText());
 				}
 			});
 		}

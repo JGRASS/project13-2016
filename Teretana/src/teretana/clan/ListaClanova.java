@@ -77,4 +77,21 @@ public class ListaClanova implements ListaClanovaInterfejs {
 		
 	}
 
+	@Override
+	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra)
+			throws Exception {
+		Clan c = clanovi.get(index);
+		c.setBrojTelefona(brojTelefona);
+		c.setAdresa(adresa);
+		c.setTezina(tezina);
+		c.setVisina(visina);
+		c.setSifra(sifra);
+		
+	}
+
+	@Override
+	public Clan getClan(int index) {
+		return clanovi.get(index);
+	}
+
 }
