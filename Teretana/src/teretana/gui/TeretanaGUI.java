@@ -30,6 +30,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Glavni prozor aplikacije
@@ -210,6 +212,14 @@ public class TeretanaGUI extends JFrame {
 	public JTable getTable() {
 		if (table == null) {
 			table = new JTable();
+			table.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if(btnAdministrator.isVisible()){
+						GUIKontroler.pogledajPodatkeClana(table.getSelectedRow());
+					}
+				}
+			});
 			table.setFillsViewportHeight(true);
 			table.setModel(new DefaultTableModel(new Object[] { "Broj clanske karte", "Ime", "Prezime", "Pol" }, 0) {
 

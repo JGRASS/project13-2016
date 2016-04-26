@@ -116,7 +116,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblBrojClanskeKarte;
 	}
 
-	private JTextField getTxtBrojClanskeKarte() {
+	public JTextField getTxtBrojClanskeKarte() {
 		if (txtBrojClanskeKarte == null) {
 			txtBrojClanskeKarte = new JTextField();
 			txtBrojClanskeKarte.setColumns(10);
@@ -131,7 +131,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblIme;
 	}
 
-	private JTextField getTxtIme() {
+	public JTextField getTxtIme() {
 		if (txtIme == null) {
 			txtIme = new JTextField();
 			txtIme.setColumns(10);
@@ -146,7 +146,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblPrezime;
 	}
 
-	private JTextField getTxtPrezime() {
+	public JTextField getTxtPrezime() {
 		if (txtPrezime == null) {
 			txtPrezime = new JTextField();
 			txtPrezime.setColumns(10);
@@ -161,7 +161,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblGodiste;
 	}
 
-	private JComboBox getComboBox() {
+	public JComboBox getComboBox() {
 		if (comboBox == null) {
 			comboBox = new JComboBox();
 			for (int i = tekucaGodina; i > tekucaGodina - 101; i--) {
@@ -178,7 +178,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblPol;
 	}
 
-	private JComboBox getComboBox_1() {
+	public JComboBox getComboBox_1() {
 		if (comboBox_1 == null) {
 			comboBox_1 = new JComboBox();
 			comboBox_1.addItem("M");
@@ -194,7 +194,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblBrojTelefona;
 	}
 
-	private JFormattedTextField getTxtBrojTelefona() {
+	public JFormattedTextField getTxtBrojTelefona() {
 		if (txtBrojTelefona == null) {
 			try {
 				MaskFormatter formatter = new MaskFormatter("###/###-####");
@@ -214,7 +214,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblAdresa;
 	}
 
-	private JTextField getTxtAdresa() {
+	public JTextField getTxtAdresa() {
 		if (txtAdresa == null) {
 			txtAdresa = new JTextField();
 			txtAdresa.setColumns(10);
@@ -229,7 +229,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblTezina;
 	}
 
-	private JTextField getTxtTezina() {
+	public JTextField getTxtTezina() {
 		if (txtTezina == null) {
 			txtTezina = new JTextField();
 			txtTezina.setColumns(10);
@@ -244,7 +244,7 @@ public class DodajClanaGUI extends JFrame {
 		return lblVisina;
 	}
 
-	private JTextField getTxtVisina() {
+	public JTextField getTxtVisina() {
 		if (txtVisina == null) {
 			txtVisina = new JTextField();
 			txtVisina.setColumns(10);
@@ -259,30 +259,32 @@ public class DodajClanaGUI extends JFrame {
 		return lblSifra;
 	}
 
-	private JPasswordField getPwdSifra() {
+	public JPasswordField getPwdSifra() {
 		if (pwdSifra == null) {
 			pwdSifra = new JPasswordField();
 		}
 		return pwdSifra;
 	}
 
-	private JButton getBtnDodaj() {
+	public JButton getBtnDodaj() {
 		if (btnDodaj == null) {
 			btnDodaj = new JButton("Dodaj");
 			btnDodaj.setFocusTraversalPolicyProvider(true);
 			btnDodaj.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(), txtIme.getText(), txtPrezime.getText(),
-							comboBox.getSelectedItem().toString(), comboBox_1.getSelectedItem().toString(),
-							txtBrojTelefona.getText(), txtAdresa.getText(), txtTezina.getText(), txtVisina.getText(),
-							pwdSifra.getText());
+					if (!(btnDodaj.getText().equals("OK"))) {
+						GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(), txtIme.getText(), txtPrezime.getText(),
+								comboBox.getSelectedItem().toString(), comboBox_1.getSelectedItem().toString(),
+								txtBrojTelefona.getText(), txtAdresa.getText(), txtTezina.getText(),
+								txtVisina.getText(), pwdSifra.getText());
+					}
 				}
 			});
 		}
 		return btnDodaj;
 	}
 
-	private JButton getBtnOdustani() {
+	public JButton getBtnOdustani() {
 		if (btnOdustani == null) {
 			btnOdustani = new JButton("Odustani");
 			btnOdustani.addActionListener(new ActionListener() {

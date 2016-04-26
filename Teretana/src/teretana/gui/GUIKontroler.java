@@ -1,6 +1,9 @@
 package teretana.gui;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -17,7 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import teretana.clan.Clan;
@@ -81,14 +86,32 @@ public class GUIKontroler {
 	 * uloguje
 	 */
 	public static void ulogujSeKaoAdmin() {
+		prikazIProveraSifre(-2, 'a');
+	}
+
+	public static boolean prikazIProveraSifre(int index, char c) {
+		if (index == -1) {
+			return false;
+		}
 		JPanel panel = new JPanel();
-		JLabel label = new JLabel("Unesite sifru:");
+		panel.setLayout(new GridLayout(2, 3, 3, 3));
+		JLabel labelSifra = new JLabel("Unesite sifru:");
+		JLabel labelBrClanskeKarte = null;
+		JTextField brClanKarte = null;
+		if (c == 'k') {
+			labelBrClanskeKarte = new JLabel("Unesite broj clanske karte:");
+			brClanKarte = new JTextField();
+			panel.add(labelBrClanskeKarte);
+			panel.add(brClanKarte);
+		}
 		JPasswordField pass = new JPasswordField(10);
+
 		pass.setFocusable(true);
 		pass.grabFocus();
 
-		panel.add(label);
+		panel.add(labelSifra);
 		panel.add(pass);
+
 		String[] options = new String[] { "Cancel", "OK" };
 		boolean signal = false;
 		while (!signal) {
@@ -96,20 +119,28 @@ public class GUIKontroler {
 					JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 			if (option == 1) // pressing OK button
 			{
-				String password = pass.getText();
-				if (password.equals("admin")) {
+				if (index == -2 && pass.getText().equals("admin") && c == 'a') {
 					signal = true;
 					prikaziEastPanel();
 					teretanaGui.getBtnAdministrator().setVisible(false);
 					teretanaGui.getBtnOdjaviteSe().setVisible(true);
+				} else if (index != -1 && pass.getText().equals(listaClanova.getClan(index).getSifra())
+						&& brClanKarte.getText().equals(listaClanova.getClan(index).getBrojClanskeKarte())
+						&& c == 'k') {
+					return true;
 				} else {
+					if (c == 'k') {
+						brClanKarte.setText("");
+						labelBrClanskeKarte.setText("Pogresan broj clanske karte, pokusajte ponovo:");
+					}
 					pass.setText("");
-					label.setText("Pogresna sifra, pokusajte ponovo:");
+					labelSifra.setText("Pogresna sifra, pokusajte ponovo:");
 				}
 			} else {
 				signal = true;
 			}
 		}
+		return false;
 	}
 
 	/**
@@ -182,6 +213,13 @@ public class GUIKontroler {
 			Clan c = listaClanova.getClan(i);
 			dfm.addRow(new Object[] { c.getBrojClanskeKarte(), c.getIme(), c.getPrezime(), c.getPol() });
 		}
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(JLabel.CENTER);
+		teretanaGui.getTable().getColumnModel().getColumn(0).setCellRenderer(tcr);
+		teretanaGui.getTable().getColumnModel().getColumn(1).setCellRenderer(tcr);
+		teretanaGui.getTable().getColumnModel().getColumn(2).setCellRenderer(tcr);
+		teretanaGui.getTable().getColumnModel().getColumn(3).setCellRenderer(tcr);
+
 	}
 
 	/**
@@ -437,6 +475,59 @@ public class GUIKontroler {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static void pogledajPodatkeClana(int index) {
+		if (prikazIProveraSifre(index, 'k')) {
+			if (dodajClanaGui == null) {
+				dodajClanaGui = new DodajClanaGUI();
+				dodajClanaGui.setLocationRelativeTo(null);
+				dodajClanaGui.setTitle("CLAN");
+				blokirajIzmenuPolja();
+				dodajClanaGui.getBtnDodaj().setText("OK");
+				dodajClanaGui.getBtnDodaj().setEnabled(true);
+				dodajClanaGui.getBtnOdustani().setVisible(false);
+				popuniSvaPolja(index);
+				dodajClanaGui.setVisible(true);
+				dodajClanaGui.getBtnDodaj().addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dodajClanaGui.dispose();
+					}
+				});
+			} else {
+				dodajClanaGui.toFront();
+			}
+		}
+
+	}
+
+	private static void blokirajIzmenuPolja() {
+		dodajClanaGui.getTxtBrojClanskeKarte().setEditable(false);
+		dodajClanaGui.getTxtAdresa().setEditable(false);
+		dodajClanaGui.getTxtBrojTelefona().setEditable(false);
+		dodajClanaGui.getTxtIme().setEditable(false);
+		dodajClanaGui.getTxtPrezime().setEditable(false);
+		dodajClanaGui.getTxtTezina().setEditable(false);
+		dodajClanaGui.getTxtVisina().setEditable(false);
+		dodajClanaGui.getComboBox().setEnabled(false);
+		dodajClanaGui.getComboBox_1().setEnabled(false);
+		dodajClanaGui.getBtnOdustani().setEnabled(false);
+		dodajClanaGui.getPwdSifra().setEditable(false);
+
+	}
+
+	private static void popuniSvaPolja(int index) {
+		Clan c = listaClanova.getClan(index);
+		dodajClanaGui.getTxtBrojClanskeKarte().setText(c.getBrojClanskeKarte());
+		dodajClanaGui.getTxtBrojTelefona().setText(c.getBrojTelefona());
+		dodajClanaGui.getTxtAdresa().setText(c.getAdresa());
+		dodajClanaGui.getTxtTezina().setText(c.getTezina() + "");
+		dodajClanaGui.getTxtVisina().setText(c.getVisina() + "");
+		dodajClanaGui.getPwdSifra().setText(c.getSifra());
+		dodajClanaGui.getTxtIme().setText(c.getIme());
+		dodajClanaGui.getTxtPrezime().setText(c.getPrezime() + "");
+		dodajClanaGui.getComboBox().setSelectedItem(c.getGodiste());
+		dodajClanaGui.getComboBox_1().setSelectedItem(c.getPol());
 	}
 
 	/**
