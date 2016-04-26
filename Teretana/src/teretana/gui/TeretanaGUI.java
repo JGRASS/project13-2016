@@ -191,7 +191,7 @@ public class TeretanaGUI extends JFrame {
 	private JPanel getSouthPanel() {
 		if (southPanel == null) {
 			southPanel = new JPanel();
-			southPanel.setPreferredSize(new Dimension(10, 40));
+			southPanel.setPreferredSize(new Dimension(10, 50));
 			southPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			southPanel.add(getBtnAdministrator());
 			southPanel.add(getBtnOdjaviteSe());
@@ -233,7 +233,7 @@ public class TeretanaGUI extends JFrame {
 					GUIKontroler.ulogujSeKaoAdmin();
 				}
 			});
-			btnAdministrator.setPreferredSize(new Dimension(120, 25));
+			btnAdministrator.setPreferredSize(new Dimension(140, 40));
 		}
 		return btnAdministrator;
 	}
@@ -300,7 +300,7 @@ public class TeretanaGUI extends JFrame {
 					GUIKontroler.odjaviSe();
 				}
 			});
-			btnOdjaviteSe.setPreferredSize(new Dimension(120, 25));
+			btnOdjaviteSe.setPreferredSize(new Dimension(140, 40));
 			btnOdjaviteSe.setVisible(false);
 		}
 		return btnOdjaviteSe;
