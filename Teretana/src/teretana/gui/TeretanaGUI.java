@@ -211,7 +211,7 @@ public class TeretanaGUI extends JFrame {
 		if (table == null) {
 			table = new JTable();
 			table.setFillsViewportHeight(true);
-			table.setModel(new DefaultTableModel(new Object[] { "Broj �lanske karte", "Ime", "Prezime", "Pol" }, 0) {
+			table.setModel(new DefaultTableModel(new Object[] { "Broj clanske karte", "Ime", "Prezime", "Pol" }, 0) {
 
 				public boolean isCellEditable(int row, int column) {
 					return false;
@@ -253,7 +253,7 @@ public class TeretanaGUI extends JFrame {
 
 	private JButton getBtnIzbrii() {
 		if (btnIzbrii == null) {
-			btnIzbrii = new JButton("Izbri\u0161i");
+			btnIzbrii = new JButton("Izbrisi");
 			btnIzbrii.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int red = getTable().getSelectedRow();
@@ -261,7 +261,7 @@ public class TeretanaGUI extends JFrame {
 					if (red >= 0) {
 						GUIKontroler.izbrisiRedIzTabele(red, (String) getTable().getValueAt(red, 0));
 					} else {
-						JOptionPane.showMessageDialog(getTable(), "Niste selektovali �lana !", "Gre�ka",
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali clana!", "Greska",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}
@@ -281,7 +281,8 @@ public class TeretanaGUI extends JFrame {
 					if (red >= 0) {
 						GUIKontroler.otvoriIzmeniClanaGUI(red);
 					} else {
-						JOptionPane.showMessageDialog(getTable(), "Niste selektovali �lana !", "Gre�ka",
+
+						JOptionPane.showMessageDialog(getTable(), "Niste selektovali clana!", "Greska",
 								JOptionPane.ERROR_MESSAGE);
 					}
 				}

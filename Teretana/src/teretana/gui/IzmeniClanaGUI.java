@@ -52,7 +52,7 @@ public class IzmeniClanaGUI extends JFrame {
 		});
 		this.index = index;
 		setResizable(false);
-		setTitle("Izmeni \u010Dlana");
+		setTitle("Izmeni clana");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(IzmeniClanaGUI.class.getResource("/icons/icon.png")));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(100, 100, 401, 437);
@@ -120,7 +120,7 @@ public class IzmeniClanaGUI extends JFrame {
 
 	private JLabel getLblTezina() {
 		if (lblTezina == null) {
-			lblTezina = new JLabel("Te\u017Eina");
+			lblTezina = new JLabel("Tezina");
 		}
 		return lblTezina;
 	}
@@ -135,7 +135,7 @@ public class IzmeniClanaGUI extends JFrame {
 
 	private JLabel getLblSifra() {
 		if (lblSifra == null) {
-			lblSifra = new JLabel("\u0160ifra");
+			lblSifra = new JLabel("Sifra");
 		}
 		return lblSifra;
 	}
