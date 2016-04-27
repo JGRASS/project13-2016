@@ -492,6 +492,7 @@ public class GUIKontroler {
 				dodajClanaGui.getBtnDodaj().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dodajClanaGui.dispose();
+						dodajClanaGui = null;
 					}
 				});
 			} else {
