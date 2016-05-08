@@ -9,8 +9,12 @@ import java.util.List;
 import teretana.clan.Clan;
 
 public class SOSacuvajUFajl {
-	
+
 	public static void izvrsi(String putanja, List<Clan> clanovi) throws Exception {
+		if (putanja == null) {
+			return;
+		}
+
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(putanja)));
 

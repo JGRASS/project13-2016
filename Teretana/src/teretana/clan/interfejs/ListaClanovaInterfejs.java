@@ -75,7 +75,7 @@ public interface ListaClanovaInterfejs {
 	 * @throws Exception
 	 *             ako je clan null
 	 */
-	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
+	public void izmeniClanaPoIndeksu(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
 			String clanarinaPlacenaDo) throws Exception;
 
 	/**

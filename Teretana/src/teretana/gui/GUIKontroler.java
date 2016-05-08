@@ -58,6 +58,8 @@ public class GUIKontroler {
 	 */
 	private static IzmeniClanaGUI izmeniClanaGui;
 
+	public static String path;
+
 	/**
 	 * Metoda postavlja istocni panel da bude vidljiv
 	 */
@@ -119,14 +121,13 @@ public class GUIKontroler {
 					JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 			if (option == 1) // pressing OK button
 			{
-				if ( c == 'a' && pass.getText().equals("admin")) {
+				if (c == 'a' && pass.getText().equals("admin")) {
 					signal = true;
 					prikaziEastPanel();
 					teretanaGui.getBtnAdministrator().setVisible(false);
 					teretanaGui.getBtnOdjaviteSe().setVisible(true);
 				} else if (c == 'k' && pass.getText().equals(listaClanova.getClan(index).getSifra())
-						&& brClanKarte.getText().equals(listaClanova.getClan(index).getBrojClanskeKarte())
-						) {
+						&& brClanKarte.getText().equals(listaClanova.getClan(index).getBrojClanskeKarte())) {
 					return true;
 				} else {
 					if (c == 'k') {
@@ -183,7 +184,9 @@ public class GUIKontroler {
 			File f = fc.getSelectedFile();
 
 			String fileName = f.getAbsolutePath();
-			
+
+			path = fileName;
+
 			try {
 				listaClanova.ucitajIzFajla(fileName);
 				popuniTabelu();
@@ -191,8 +194,6 @@ public class GUIKontroler {
 				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Greska pri ucitavanju clanova!", "Greska",
 						JOptionPane.ERROR_MESSAGE);
 			}
-			
-			
 
 		}
 	}
@@ -209,13 +210,7 @@ public class GUIKontroler {
 			Clan c = listaClanova.getClan(i);
 			dfm.addRow(new Object[] { c.getBrojClanskeKarte(), c.getIme(), c.getPrezime(), c.getPol() });
 		}
-		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
-		tcr.setHorizontalAlignment(JLabel.CENTER);
-		teretanaGui.getTable().getColumnModel().getColumn(0).setCellRenderer(tcr);
-		teretanaGui.getTable().getColumnModel().getColumn(1).setCellRenderer(tcr);
-		teretanaGui.getTable().getColumnModel().getColumn(2).setCellRenderer(tcr);
-		teretanaGui.getTable().getColumnModel().getColumn(3).setCellRenderer(tcr);
-
+		centrirajTabelu();
 	}
 
 	/**
@@ -400,26 +395,28 @@ public class GUIKontroler {
 	 */
 	public static void dodajClana(String brojClanskeKarte, String ime, String prezime, String godiste, String pol,
 			String brojTelefona, String adresa, String tezina, String visina, String sifra, String clanarinaPlacenaDo) {
-		Clan c = new Clan();
-		c.setBrojClanskeKarte(brojClanskeKarte);
-		c.setIme(ime);
-		c.setPrezime(prezime);
-		c.setGodiste(Integer.parseInt(godiste));
-		c.setPol(pol.charAt(0));
-		c.setBrojTelefona(brojTelefona);
-		c.setAdresa(adresa);
-		c.setTezina(Double.parseDouble(tezina));
-		c.setVisina(Double.parseDouble(visina));
-		c.setSifra(sifra);
-		c.setPlacenaClanarina(clanarinaPlacenaDo);
-
 		try {
+			Clan c = new Clan();
+			c.setBrojClanskeKarte(brojClanskeKarte);
+			c.setIme(ime);
+			c.setPrezime(prezime);
+			c.setGodiste(Integer.parseInt(godiste));
+			c.setPol(pol.charAt(0));
+			c.setBrojTelefona(brojTelefona);
+			c.setAdresa(adresa);
+			c.setTezina(Double.parseDouble(tezina));
+			c.setVisina(Double.parseDouble(visina));
+			c.setSifra(sifra);
+			c.setPlacenaClanarina(clanarinaPlacenaDo);
+
 			listaClanova.dodajClana(c);
 			zatvoriDodajClanaGUI();
 			dodajClanaUTabelu(c);
 			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clan je uspesno dodat.", "Obavestenje",
 					JOptionPane.INFORMATION_MESSAGE);
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(dodajClanaGui.getContentPane(), "Greska pri unosu podataka!", "Greska",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -432,6 +429,16 @@ public class GUIKontroler {
 	private static void dodajClanaUTabelu(Clan c) {
 		DefaultTableModel dtm = (DefaultTableModel) teretanaGui.getTable().getModel();
 		dtm.addRow(new Object[] { c.getBrojClanskeKarte(), c.getIme(), c.getPrezime(), c.getPol() });
+		centrirajTabelu();
+	}
+
+	private static void centrirajTabelu() {
+		DefaultTableCellRenderer tcr = new DefaultTableCellRenderer();
+		tcr.setHorizontalAlignment(JLabel.CENTER);
+		teretanaGui.getTable().getColumnModel().getColumn(0).setCellRenderer(tcr);
+		teretanaGui.getTable().getColumnModel().getColumn(1).setCellRenderer(tcr);
+		teretanaGui.getTable().getColumnModel().getColumn(2).setCellRenderer(tcr);
+		teretanaGui.getTable().getColumnModel().getColumn(3).setCellRenderer(tcr);
 	}
 
 	/**
@@ -453,17 +460,14 @@ public class GUIKontroler {
 	public static void izmeniClana(int index, String brojTelefona, String adresa, String tezina, String visina,
 			String sifra, String clanarinaPlacenaDo) {
 		try {
-			listaClanova.izmeniClana(index, brojTelefona, adresa, Double.parseDouble(tezina),
+			listaClanova.izmeniClanaPoIndeksu(index, brojTelefona, adresa, Double.parseDouble(tezina),
 					Double.parseDouble(visina), sifra, clanarinaPlacenaDo);
 			zatvoriIzmeniClanaGUI();
 			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clan je uspesno izmenjen.", "Obavestenje",
 					JOptionPane.INFORMATION_MESSAGE);
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(izmeniClanaGui.getContentPane(), "Greska prilikom unosa podataka!", "Greska",
+					JOptionPane.ERROR_MESSAGE);
 		}
 
 	}
@@ -506,7 +510,7 @@ public class GUIKontroler {
 		dodajClanaGui.getBtnOdustani().setBorder(null);
 		dodajClanaGui.getPwdSifra().setBorder(null);
 		dodajClanaGui.getTxtClanarinaplacenado().setBorder(null);
-		
+
 		dodajClanaGui.getTxtBrojClanskeKarte().setEditable(false);
 		dodajClanaGui.getTxtAdresa().setEditable(false);
 		dodajClanaGui.getTxtBrojTelefona().setEditable(false);
@@ -544,6 +548,7 @@ public class GUIKontroler {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					path = null;
 					listaClanova = new ListaClanova();
 					teretanaGui = new TeretanaGUI();
 					teretanaGui.setLocationRelativeTo(null);

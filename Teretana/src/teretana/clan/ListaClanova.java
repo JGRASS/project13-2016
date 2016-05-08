@@ -19,6 +19,7 @@ import teretana.clan.sistemske_operacije.SOIzmeniClana;
 import teretana.clan.sistemske_operacije.SOIzmeniClanaPoIndeksu;
 import teretana.clan.sistemske_operacije.SOSacuvajUFajl;
 import teretana.clan.sistemske_operacije.SOUcitajIzFajla;
+import teretana.gui.GUIKontroler;
 
 /**
  * Klasa predstavlja listu Clanova.
@@ -59,6 +60,7 @@ public class ListaClanova implements ListaClanovaInterfejs {
 	@Override
 	public void dodajClana(Clan c) throws Exception {
 		SODodajClana.izvrsi(c, clanovi);
+		SOSacuvajUFajl.izvrsi(GUIKontroler.path, clanovi);
 	}
 
 	private void izbrisiClanaIzListe(Clan c) throws Exception {
@@ -68,18 +70,21 @@ public class ListaClanova implements ListaClanovaInterfejs {
 	@Override
 	public void izbrisiClana(String id) throws Exception {
 		SOIzbrisiClana.izvrsi(id, clanovi);
+		SOSacuvajUFajl.izvrsi(GUIKontroler.path, clanovi);
 	}
 
 	@Override
 	public void izmeniClana(Clan c, String brojTelefona, String adresa, double tezina, double visina, String sifra, String clanarinaPlacenaDo)
 			throws Exception {
 		SOIzmeniClana.izvrsi(clanovi, c, brojTelefona, adresa, tezina, visina, sifra, clanarinaPlacenaDo);
+		SOSacuvajUFajl.izvrsi(GUIKontroler.path, clanovi);
 	}
 
 	@Override
-	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
+	public void izmeniClanaPoIndeksu(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
 			String clanarinaPlacenaDo) throws Exception {
 		SOIzmeniClanaPoIndeksu.izvrsi(clanovi, index, brojTelefona, adresa, tezina, visina, sifra, clanarinaPlacenaDo);
+		SOSacuvajUFajl.izvrsi(GUIKontroler.path, clanovi);
 	}
 
 	@Override
