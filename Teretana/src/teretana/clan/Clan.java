@@ -88,6 +88,9 @@ public class Clan implements Serializable {
 	 *            nova vrijednost clanske karte
 	 */
 	public void setBrojClanskeKarte(String brojClanskeKarte) {
+		if (brojClanskeKarte == null) {
+			throw new RuntimeException("Broj clanske karte je null");
+		}
 		this.brojClanskeKarte = brojClanskeKarte;
 	}
 
@@ -106,6 +109,9 @@ public class Clan implements Serializable {
 	 *            novo ime clana
 	 */
 	public void setIme(String ime) {
+		if (ime == null) {
+			throw new RuntimeException("Ime je null");
+		}
 		this.ime = ime;
 	}
 
@@ -124,6 +130,9 @@ public class Clan implements Serializable {
 	 *            novo prezime clana
 	 */
 	public void setPrezime(String prezime) {
+		if (prezime == null) {
+			throw new RuntimeException("Prezime je null");
+		}
 		this.prezime = prezime;
 	}
 
@@ -142,6 +151,9 @@ public class Clan implements Serializable {
 	 *            novi broj telefona clana
 	 */
 	public void setBrojTelefona(String brojTelefona) {
+		if (brojTelefona == null) {
+			throw new RuntimeException("Broj telefona je null");
+		}
 		this.brojTelefona = brojTelefona;
 	}
 
@@ -160,6 +172,9 @@ public class Clan implements Serializable {
 	 *            nova adresa clana
 	 */
 	public void setAdresa(String adresa) {
+		if (adresa == null) {
+			throw new RuntimeException("Adresa je null");
+		}
 		this.adresa = adresa;
 	}
 
@@ -178,6 +193,9 @@ public class Clan implements Serializable {
 	 *            novo godiste clana
 	 */
 	public void setGodiste(int godiste) {
+		if (godiste < 1900) {
+			throw new RuntimeException("Greska, neispravno unijeto godiste.");
+		}
 		this.godiste = godiste;
 	}
 
@@ -196,6 +214,9 @@ public class Clan implements Serializable {
 	 *            novi pol clana
 	 */
 	public void setPol(char pol) {
+		if (pol != 'M' || pol != 'Z') {
+			throw new RuntimeException("Neispravo unet pol.");
+		}
 		this.pol = pol;
 	}
 
@@ -214,6 +235,9 @@ public class Clan implements Serializable {
 	 *            nova tezina clana
 	 */
 	public void setTezina(double tezina) {
+		if (tezina < 0 || tezina > 250) {
+			throw new RuntimeException("Greska prilikom unosa tezine");
+		}
 		this.tezina = tezina;
 	}
 
@@ -232,6 +256,9 @@ public class Clan implements Serializable {
 	 *            nova visina clana
 	 */
 	public void setVisina(double visina) {
+		if (visina < 0 || visina > 300) {
+			throw new RuntimeException("Greska prilikom unosa visine");
+		}
 		this.visina = visina;
 	}
 
@@ -249,6 +276,9 @@ public class Clan implements Serializable {
 	 * @param sifra
 	 */
 	public void setSifra(String sifra) {
+		if (sifra == null) {
+			throw new RuntimeException("Sifra je null");
+		}
 		this.sifra = sifra;
 	}
 
@@ -267,6 +297,9 @@ public class Clan implements Serializable {
 	 *            - mesec (i godina) do kog je clan platio clanarinu
 	 */
 	public void setPlacenaClanarina(String placenaClanarina) {
+		if (placenaClanarina == null) {
+			throw new RuntimeException("Placena clanarina je null");
+		}
 		this.placenaClanarina = placenaClanarina;
 	}
 
