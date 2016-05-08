@@ -60,6 +60,7 @@ public class TeretanaGUI extends JFrame {
 	private JButton btnIzmeni;
 	private JButton btnOdjaviteSe;
 	private JLabel label;
+	private JMenuItem mntmNew;
 
 	/**
 	 * Create the frame.
@@ -97,6 +98,7 @@ public class TeretanaGUI extends JFrame {
 	private JMenu getMnFile() {
 		if (mnFile == null) {
 			mnFile = new JMenu("File");
+			mnFile.add(getMntmNew());
 			mnFile.add(getMntmOpen());
 			mnFile.add(getMntmSave());
 			mnFile.add(getSeparator());
@@ -322,5 +324,18 @@ public class TeretanaGUI extends JFrame {
 			label.setPreferredSize(new Dimension(130, 16));
 		}
 		return label;
+	}
+	private JMenuItem getMntmNew() {
+		if (mntmNew == null) {
+			mntmNew = new JMenuItem("New");
+			mntmNew.setIcon(new ImageIcon(TeretanaGUI.class.getResource("/icons/newFile.png")));
+			mntmNew.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					GUIKontroler.pokreniAplikacijuPonovo();
+				}
+			});
+			mntmNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK));
+		}
+		return mntmNew;
 	}
 }

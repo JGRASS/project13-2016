@@ -12,6 +12,13 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import teretana.clan.interfejs.ListaClanovaInterfejs;
+import teretana.clan.sistemske_operacije.SODodajClana;
+import teretana.clan.sistemske_operacije.SOIzbrisiClana;
+import teretana.clan.sistemske_operacije.SOIzbrisiClanaIzListe;
+import teretana.clan.sistemske_operacije.SOIzmeniClana;
+import teretana.clan.sistemske_operacije.SOIzmeniClanaPoIndeksu;
+import teretana.clan.sistemske_operacije.SOSacuvajUFajl;
+import teretana.clan.sistemske_operacije.SOUcitajIzFajla;
 
 /**
  * Klasa predstavlja listu Clanova.
@@ -51,68 +58,28 @@ public class ListaClanova implements ListaClanovaInterfejs {
 
 	@Override
 	public void dodajClana(Clan c) throws Exception {
-		if (c == null) {
-			throw new Exception("Greska. Nije prosledjen clan.");
-		}
-
-		clanovi.add(c);
+		SODodajClana.izvrsi(c, clanovi);
 	}
 
-	private void izbrisiClana(Clan c) throws Exception {
-		if (clanovi.contains(c))
-			clanovi.remove(c);
-		else
-			throw new Exception("Izabrana osoba nije clan teretane.");
+	private void izbrisiClanaIzListe(Clan c) throws Exception {
+		SOIzbrisiClanaIzListe.izvrsi(c, clanovi);
 	}
 
 	@Override
 	public void izbrisiClana(String id) throws Exception {
-		if (id == null) {
-			throw new Exception("Izabrana osoba nije clan teretane.");
-		}
-
-		for (int i = 0; i < clanovi.size(); i++) {
-			if (clanovi.get(i).getBrojClanskeKarte().equals(id)) {
-				izbrisiClana(clanovi.get(i));
-			}
-		}
+		SOIzbrisiClana.izvrsi(id, clanovi);
 	}
 
 	@Override
-	public void izmeniClana(Clan c, String brojTelefona, String adresa, double tezina, double visina, String sifra)
+	public void izmeniClana(Clan c, String brojTelefona, String adresa, double tezina, double visina, String sifra, String clanarinaPlacenaDo)
 			throws Exception {
-		if (!clanovi.contains(c)) {
-			throw new Exception("Izabrana osoba nije clan teretane.");
-		}
-
-		for (int i = 0; i < clanovi.size(); i++) {
-			Clan temp = clanovi.get(i);
-
-			if (temp.equals(c)) {
-
-				temp.setBrojTelefona(brojTelefona);
-				temp.setAdresa(adresa);
-				temp.setTezina(tezina);
-				temp.setVisina(visina);
-				temp.setSifra(sifra);
-
-				break;
-			}
-		}
-
+		SOIzmeniClana.izvrsi(clanovi, c, brojTelefona, adresa, tezina, visina, sifra, clanarinaPlacenaDo);
 	}
 
 	@Override
 	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
 			String clanarinaPlacenaDo) throws Exception {
-		Clan c = clanovi.get(index);
-		c.setBrojTelefona(brojTelefona);
-		c.setAdresa(adresa);
-		c.setTezina(tezina);
-		c.setVisina(visina);
-		c.setSifra(sifra);
-		c.setPlacenaClanarina(clanarinaPlacenaDo);
-
+		SOIzmeniClanaPoIndeksu.izvrsi(clanovi, index, brojTelefona, adresa, tezina, visina, sifra, clanarinaPlacenaDo);
 	}
 
 	@Override
@@ -136,26 +103,17 @@ public class ListaClanova implements ListaClanovaInterfejs {
 	@Override
 	public void ucitajIzFajla(String putanja) throws Exception {
 		try {
-			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(putanja)));
-
-			final LinkedList<Clan> clanovi = (LinkedList<Clan>) in.readObject();
-
-			this.clanovi = clanovi;
-
-			in.close();
+			this.clanovi = SOUcitajIzFajla.izvrsi(putanja, clanovi);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}
+		
 	}
 
 	@Override
 	public void sacuvajUFajl(String putanja) throws Exception {
 		try {
-			ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(putanja)));
-
-			out.writeObject((LinkedList<Clan>) clanovi);
-
-			out.close();
+			SOSacuvajUFajl.izvrsi(putanja, clanovi);
 		} catch (Exception e) {
 			throw new Exception(e);
 		}

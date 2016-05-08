@@ -556,4 +556,9 @@ public class GUIKontroler {
 		});
 	}
 
+	public static void pokreniAplikacijuPonovo() {
+		teretanaGui.dispose();
+		main(null);
+	}
+
 }

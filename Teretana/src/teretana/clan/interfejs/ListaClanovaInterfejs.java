@@ -47,11 +47,13 @@ public interface ListaClanovaInterfejs {
 	 *            visina clana
 	 * @param sifra
 	 *            sifra clana
+	 * @param clanarinaPlacenaDo
+	 *            datum do kog je placena clanarina
 	 * @throws Exception
 	 *             ako je clan null
 	 */
-	public void izmeniClana(Clan c, String brojTelefona, String adresa, double tezina, double visina, String sifra)
-			throws Exception;
+	public void izmeniClana(Clan c, String brojTelefona, String adresa, double tezina, double visina, String sifra,
+			String clanarinaPlacenaDo) throws Exception;
 
 	/**
 	 * Menja podatke clana
