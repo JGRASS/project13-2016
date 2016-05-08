@@ -2,6 +2,8 @@ package teretana.clan;
 
 import static org.junit.Assert.*;
 
+import java.util.GregorianCalendar;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -79,32 +81,83 @@ public class ClanTest {
 
 	@Test
 	public void testSetGodiste() {
-		fail("Not yet implemented");
+		c.setGodiste(2001);
+		assertEquals(2001, c.getGodiste());
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetGodisteManje20Vek() {
+		c.setGodiste(1892);
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetGodisteVeceOdTekuceGodine() {
+		c.setGodiste(new GregorianCalendar().get(GregorianCalendar.YEAR) + 1);
 	}
 
 	@Test
 	public void testSetPol() {
-		fail("Not yet implemented");
+		c.setPol('Z');
+		assertEquals('Z', c.getPol());
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetPolNeispravan() {
+		c.setPol('T');
 	}
 
 	@Test
 	public void testSetTezina() {
-		fail("Not yet implemented");
+		c.setTezina(80.99);
+		assertEquals(80.99, c.getTezina(), 0.0001);
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetTezinaManjeOdNule() {
+		c.setTezina(-200);
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetTezinaVecaOdDvestapedeset() {
+		c.setTezina(251.9);
 	}
 
 	@Test
 	public void testSetVisina() {
-		fail("Not yet implemented");
+		c.setVisina(190);
+		assertEquals(190, c.getVisina(), 0.0001);
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetVisinaManjaOdNule() {
+		c.setVisina(-10);
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetVisinaVecaOdTrista() {
+		c.setVisina(320.99);
 	}
 
 	@Test
 	public void testSetSifra() {
-		fail("Not yet implemented");
+		c.setSifra("korisnik");
+		assertEquals("korisnik", c.getSifra());
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetSifraNull() {
+		c.setSifra(null);
 	}
 
 	@Test
 	public void testSetPlacenaClanarina() {
-		fail("Not yet implemented");
+		c.setPlacenaClanarina("Jun 2016");
+		assertEquals("Jun 2016", c.getPlacenaClanarina());
+	}
+
+	@Test(expected = java.lang.RuntimeException.class)
+	public void testSetPlacenaClanarinaNull() {
+		c.setPlacenaClanarina(null);
 	}
 
 }

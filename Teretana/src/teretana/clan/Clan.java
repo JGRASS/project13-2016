@@ -1,6 +1,7 @@
 package teretana.clan;
 
 import java.io.Serializable;
+import java.util.GregorianCalendar;
 
 /**
  * Klasa predstavlja clana teretane.
@@ -193,7 +194,7 @@ public class Clan implements Serializable {
 	 *            novo godiste clana
 	 */
 	public void setGodiste(int godiste) {
-		if (godiste < 1900) {
+		if (godiste < 1900 || godiste > new GregorianCalendar().get(GregorianCalendar.YEAR)) {
 			throw new RuntimeException("Greska, neispravno unijeto godiste.");
 		}
 		this.godiste = godiste;
@@ -214,7 +215,7 @@ public class Clan implements Serializable {
 	 *            novi pol clana
 	 */
 	public void setPol(char pol) {
-		if (pol != 'M' || pol != 'Z') {
+		if (pol != 'M' && pol != 'Z') {
 			throw new RuntimeException("Neispravo unet pol.");
 		}
 		this.pol = pol;
