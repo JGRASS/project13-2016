@@ -119,14 +119,14 @@ public class GUIKontroler {
 					JOptionPane.PLAIN_MESSAGE, null, options, options[1]);
 			if (option == 1) // pressing OK button
 			{
-				if (index == -2 && pass.getText().equals("admin") && c == 'a') {
+				if ( c == 'a' && pass.getText().equals("admin")) {
 					signal = true;
 					prikaziEastPanel();
 					teretanaGui.getBtnAdministrator().setVisible(false);
 					teretanaGui.getBtnOdjaviteSe().setVisible(true);
-				} else if (index != -1 && pass.getText().equals(listaClanova.getClan(index).getSifra())
+				} else if (c == 'k' && pass.getText().equals(listaClanova.getClan(index).getSifra())
 						&& brClanKarte.getText().equals(listaClanova.getClan(index).getBrojClanskeKarte())
-						&& c == 'k') {
+						) {
 					return true;
 				} else {
 					if (c == 'k') {
@@ -176,27 +176,23 @@ public class GUIKontroler {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Gym files", "gym");
 
 		fc.setFileFilter(filter);
-
+		fc.setCurrentDirectory(new File("."));
 		int izbor = fc.showOpenDialog(teretanaGui.getContentPane());
 
 		if (izbor == JFileChooser.APPROVE_OPTION) {
 			File f = fc.getSelectedFile();
 
 			String fileName = f.getAbsolutePath();
-
+			
 			try {
-				ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileName)));
-
-				final LinkedList<Clan> clanovi = (LinkedList<Clan>) in.readObject();
-
-				listaClanova.dodajClanove(clanovi);
+				listaClanova.ucitajIzFajla(fileName);
 				popuniTabelu();
-
-				in.close();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Greska pri ucitavanju clanova!", "Greska",
 						JOptionPane.ERROR_MESSAGE);
 			}
+			
+			
 
 		}
 	}
@@ -231,6 +227,7 @@ public class GUIKontroler {
 		JFileChooser fc = new JFileChooser();
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("Gym files", "gym");
 		fc.setFileFilter(filter);
+		fc.setCurrentDirectory(new File("."));
 		int izbor = fc.showSaveDialog(teretanaGui.getContentPane());
 
 		if (izbor == JFileChooser.APPROVE_OPTION) {
@@ -245,17 +242,9 @@ public class GUIKontroler {
 			}
 
 			try {
-				ObjectOutputStream out = new ObjectOutputStream(
-						new BufferedOutputStream(new FileOutputStream(imeFajla)));
-
-				ListaClanova l = (ListaClanova) listaClanova;
-
-				out.writeObject((LinkedList<Clan>) l.getListaClanova());
-
+				listaClanova.sacuvajUFajl(imeFajla);
 				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clanovi su uspesno sacuvani u datoteci.",
 						"Obavestenje", JOptionPane.INFORMATION_MESSAGE);
-
-				out.close();
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Greska prilikom cuvanja clanova.",
 						"Obavestenje", JOptionPane.ERROR_MESSAGE);
@@ -371,6 +360,7 @@ public class GUIKontroler {
 		izmeniClanaGui.getTxtTezina().setText(c.getTezina() + "");
 		izmeniClanaGui.getTxtVisina().setText(c.getVisina() + "");
 		izmeniClanaGui.getTxtSifra().setText(c.getSifra());
+		izmeniClanaGui.getTxtClanarinaPlacenaDo().setText(c.getPlacenaClanarina());
 	}
 
 	/**
@@ -409,7 +399,7 @@ public class GUIKontroler {
 	 *            - sifra clana teretane
 	 */
 	public static void dodajClana(String brojClanskeKarte, String ime, String prezime, String godiste, String pol,
-			String brojTelefona, String adresa, String tezina, String visina, String sifra) {
+			String brojTelefona, String adresa, String tezina, String visina, String sifra, String clanarinaPlacenaDo) {
 		Clan c = new Clan();
 		c.setBrojClanskeKarte(brojClanskeKarte);
 		c.setIme(ime);
@@ -421,6 +411,7 @@ public class GUIKontroler {
 		c.setTezina(Double.parseDouble(tezina));
 		c.setVisina(Double.parseDouble(visina));
 		c.setSifra(sifra);
+		c.setPlacenaClanarina(clanarinaPlacenaDo);
 
 		try {
 			listaClanova.dodajClana(c);
@@ -460,10 +451,10 @@ public class GUIKontroler {
 	 *            - sifra clana teretane
 	 */
 	public static void izmeniClana(int index, String brojTelefona, String adresa, String tezina, String visina,
-			String sifra) {
+			String sifra, String clanarinaPlacenaDo) {
 		try {
 			listaClanova.izmeniClana(index, brojTelefona, adresa, Double.parseDouble(tezina),
-					Double.parseDouble(visina), sifra);
+					Double.parseDouble(visina), sifra, clanarinaPlacenaDo);
 			zatvoriIzmeniClanaGUI();
 			JOptionPane.showMessageDialog(teretanaGui.getContentPane(), "Clan je uspesno izmenjen.", "Obavestenje",
 					JOptionPane.INFORMATION_MESSAGE);
@@ -503,6 +494,19 @@ public class GUIKontroler {
 	}
 
 	private static void blokirajIzmenuPolja() {
+		dodajClanaGui.getTxtBrojClanskeKarte().setBorder(null);
+		dodajClanaGui.getTxtAdresa().setBorder(null);
+		dodajClanaGui.getTxtBrojTelefona().setBorder(null);
+		dodajClanaGui.getTxtIme().setBorder(null);
+		dodajClanaGui.getTxtPrezime().setBorder(null);
+		dodajClanaGui.getTxtTezina().setBorder(null);
+		dodajClanaGui.getTxtVisina().setBorder(null);
+		dodajClanaGui.getComboBox().setBorder(null);
+		dodajClanaGui.getComboBox_1().setBorder(null);
+		dodajClanaGui.getBtnOdustani().setBorder(null);
+		dodajClanaGui.getPwdSifra().setBorder(null);
+		dodajClanaGui.getTxtClanarinaplacenado().setBorder(null);
+		
 		dodajClanaGui.getTxtBrojClanskeKarte().setEditable(false);
 		dodajClanaGui.getTxtAdresa().setEditable(false);
 		dodajClanaGui.getTxtBrojTelefona().setEditable(false);
@@ -514,6 +518,7 @@ public class GUIKontroler {
 		dodajClanaGui.getComboBox_1().setEnabled(false);
 		dodajClanaGui.getBtnOdustani().setEnabled(false);
 		dodajClanaGui.getPwdSifra().setEditable(false);
+		dodajClanaGui.getTxtClanarinaplacenado().setEditable(false);
 
 	}
 
@@ -529,6 +534,7 @@ public class GUIKontroler {
 		dodajClanaGui.getTxtPrezime().setText(c.getPrezime() + "");
 		dodajClanaGui.getComboBox().setSelectedItem(c.getGodiste());
 		dodajClanaGui.getComboBox_1().setSelectedItem(c.getPol());
+		dodajClanaGui.getTxtClanarinaplacenado().setText(c.getPlacenaClanarina());
 	}
 
 	/**

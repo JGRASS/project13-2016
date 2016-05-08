@@ -56,6 +56,8 @@ public class DodajClanaGUI extends JFrame {
 	private JPasswordField pwdSifra;
 	private JButton btnDodaj;
 	private JButton btnOdustani;
+	private JLabel lblClanarinaPlacenaDo;
+	private JTextField txtClanarinaplacenado;
 
 	/**
 	 * Create the frame.
@@ -82,7 +84,7 @@ public class DodajClanaGUI extends JFrame {
 	private JPanel getPanel() {
 		if (panel == null) {
 			panel = new JPanel();
-			panel.setLayout(new GridLayout(11, 2, 3, 3));
+			panel.setLayout(new GridLayout(12, 2, 3, 3));
 			panel.add(getLblBrojClanskeKarte());
 			panel.add(getTxtBrojClanskeKarte());
 			panel.add(getLblIme());
@@ -103,6 +105,8 @@ public class DodajClanaGUI extends JFrame {
 			panel.add(getTxtVisina());
 			panel.add(getLblSifra());
 			panel.add(getPwdSifra());
+			panel.add(getLblClanarinaPlacenaDo());
+			panel.add(getTxtClanarinaplacenado());
 			panel.add(getBtnDodaj());
 			panel.add(getBtnOdustani());
 		}
@@ -276,7 +280,7 @@ public class DodajClanaGUI extends JFrame {
 						GUIKontroler.dodajClana(txtBrojClanskeKarte.getText(), txtIme.getText(), txtPrezime.getText(),
 								comboBox.getSelectedItem().toString(), comboBox_1.getSelectedItem().toString(),
 								txtBrojTelefona.getText(), txtAdresa.getText(), txtTezina.getText(),
-								txtVisina.getText(), pwdSifra.getText());
+								txtVisina.getText(), pwdSifra.getText(), txtClanarinaplacenado.getText());
 					}
 				}
 			});
@@ -294,5 +298,20 @@ public class DodajClanaGUI extends JFrame {
 			});
 		}
 		return btnOdustani;
+	}
+
+	private JLabel getLblClanarinaPlacenaDo() {
+		if (lblClanarinaPlacenaDo == null) {
+			lblClanarinaPlacenaDo = new JLabel("Clanarina placena do");
+		}
+		return lblClanarinaPlacenaDo;
+	}
+
+	public JTextField getTxtClanarinaplacenado() {
+		if (txtClanarinaplacenado == null) {
+			txtClanarinaplacenado = new JTextField();
+			txtClanarinaplacenado.setColumns(10);
+		}
+		return txtClanarinaplacenado;
 	}
 }

@@ -51,6 +51,10 @@ public class Clan implements Serializable {
 	 * Sifra clana, koja mu omogucava pristup svojim podacima.
 	 */
 	private String sifra;
+	/**
+	 * Mesec (i godina) do kog je clan platio clanarinu
+	 */
+	private String placenaClanarina;
 
 	@Override
 	public boolean equals(Object obj) {
@@ -246,6 +250,24 @@ public class Clan implements Serializable {
 	 */
 	public void setSifra(String sifra) {
 		this.sifra = sifra;
+	}
+
+	/**
+	 * 
+	 * @return mesec (i godina) do kog je clan platio clanarinu
+	 */
+	public String getPlacenaClanarina() {
+		return placenaClanarina;
+	}
+
+	/**
+	 * Postavlja atribut placenaClanarina na zadatu vrednost
+	 * 
+	 * @param placenaClanarina
+	 *            - mesec (i godina) do kog je clan platio clanarinu
+	 */
+	public void setPlacenaClanarina(String placenaClanarina) {
+		this.placenaClanarina = placenaClanarina;
 	}
 
 }

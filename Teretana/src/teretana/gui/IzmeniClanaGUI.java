@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 
 /**
  * Prozor omogucava izmenu podataka o clanu teretane
@@ -39,6 +40,8 @@ public class IzmeniClanaGUI extends JFrame {
 	private JButton btnIzmeni;
 	private JButton btnOdustani;
 	private int index;
+	private JLabel lblClanarinaPlacenaDo;
+	private JTextField txtClanarinaPlacenaDo;
 
 	/**
 	 * Create the frame.
@@ -59,7 +62,7 @@ public class IzmeniClanaGUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(6, 2, 3, 3));
+		contentPane.setLayout(new GridLayout(7, 3, 3, 3));
 		contentPane.add(getLblBrojTelefona());
 		contentPane.add(getTxtBrojtelefona());
 		contentPane.add(getLblNewLabel());
@@ -70,6 +73,8 @@ public class IzmeniClanaGUI extends JFrame {
 		contentPane.add(getTxtTezina());
 		contentPane.add(getLblSifra());
 		contentPane.add(getTxtSifra());
+		contentPane.add(getLblClanarinaPlacenaDo());
+		contentPane.add(getTxtClanarinaPlacenaDo());
 		contentPane.add(getBtnIzmeni());
 		contentPane.add(getBtnOdustani());
 	}
@@ -154,7 +159,7 @@ public class IzmeniClanaGUI extends JFrame {
 			btnIzmeni.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					GUIKontroler.izmeniClana(index, txtBrojtelefona.getText(), txtAdresa.getText(), txtTezina.getText(),
-							txtVisina.getText(), txtSifra.getText());
+							txtVisina.getText(), txtSifra.getText(), txtClanarinaPlacenaDo.getText());
 				}
 			});
 		}
@@ -171,5 +176,20 @@ public class IzmeniClanaGUI extends JFrame {
 			});
 		}
 		return btnOdustani;
+	}
+
+	private JLabel getLblClanarinaPlacenaDo() {
+		if (lblClanarinaPlacenaDo == null) {
+			lblClanarinaPlacenaDo = new JLabel("Clanarina placena do");
+		}
+		return lblClanarinaPlacenaDo;
+	}
+
+	public JTextField getTxtClanarinaPlacenaDo() {
+		if (txtClanarinaPlacenaDo == null) {
+			txtClanarinaPlacenaDo = new JTextField();
+			txtClanarinaPlacenaDo.setColumns(10);
+		}
+		return txtClanarinaPlacenaDo;
 	}
 }

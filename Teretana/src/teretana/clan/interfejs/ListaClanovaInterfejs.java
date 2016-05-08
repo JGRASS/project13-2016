@@ -68,11 +68,13 @@ public interface ListaClanovaInterfejs {
 	 *            visina clana
 	 * @param sifra
 	 *            sifra clana
+	 * @param clanarinaPlacenaDo
+	 *            do kog datuma je placena clanarina
 	 * @throws Exception
 	 *             ako je clan null
 	 */
-	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra)
-			throws Exception;
+	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
+			String clanarinaPlacenaDo) throws Exception;
 
 	/**
 	 * 
@@ -95,5 +97,21 @@ public interface ListaClanovaInterfejs {
 	 * @return broj clanova liste
 	 */
 	public int size();
+
+	/**
+	 * Metoda ucitava clanove iz zadatog fajla
+	 * 
+	 * @param putanja
+	 *            - putanja do fajla
+	 */
+	public void ucitajIzFajla(String putanja) throws Exception;
+
+	/**
+	 * Metoda upisuje clanove u zadati fajl
+	 * 
+	 * @param putanja
+	 *            - putanja do fajla
+	 */
+	public void sacuvajUFajl(String putanja) throws Exception;
 
 }

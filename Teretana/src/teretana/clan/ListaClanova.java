@@ -1,7 +1,15 @@
 package teretana.clan;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import teretana.clan.interfejs.ListaClanovaInterfejs;
 
@@ -95,14 +103,15 @@ public class ListaClanova implements ListaClanovaInterfejs {
 	}
 
 	@Override
-	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra)
-			throws Exception {
+	public void izmeniClana(int index, String brojTelefona, String adresa, double tezina, double visina, String sifra,
+			String clanarinaPlacenaDo) throws Exception {
 		Clan c = clanovi.get(index);
 		c.setBrojTelefona(brojTelefona);
 		c.setAdresa(adresa);
 		c.setTezina(tezina);
 		c.setVisina(visina);
 		c.setSifra(sifra);
+		c.setPlacenaClanarina(clanarinaPlacenaDo);
 
 	}
 
@@ -122,6 +131,34 @@ public class ListaClanova implements ListaClanovaInterfejs {
 			return 0;
 		}
 		return clanovi.size();
+	}
+
+	@Override
+	public void ucitajIzFajla(String putanja) throws Exception {
+		try {
+			ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(putanja)));
+
+			final LinkedList<Clan> clanovi = (LinkedList<Clan>) in.readObject();
+
+			this.clanovi = clanovi;
+
+			in.close();
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
+	}
+
+	@Override
+	public void sacuvajUFajl(String putanja) throws Exception {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(putanja)));
+
+			out.writeObject((LinkedList<Clan>) clanovi);
+
+			out.close();
+		} catch (Exception e) {
+			throw new Exception(e);
+		}
 	}
 
 }
